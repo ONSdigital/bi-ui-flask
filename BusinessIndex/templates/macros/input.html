@@ -1,0 +1,20 @@
+{% macro text(name='text-input', label=None, focus=None) %}
+
+
+
+
+    <div class="field">
+        {% if label %}
+            <label class="label venus " for="text-input">
+                {{ label | e }}
+            </label>
+        {% endif %}
+
+        {% if focus %}
+            <input class="input input--text" type="text" id="{{ name }}" autofocus/>
+        {%  else %}
+            <input class="input input--text" type="text" id="text-input"/>
+        {% endif %}
+    </div>
+{% endmacro %}
+

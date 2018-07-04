@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section>
+
+        <div class="main-content">
+
+            <div class="wrapper narrow">
+
+                {{ heading.two("Search the UK business population") }}
+
+                <form action="/search" method="post" novalidate>
+                    {{ form.hidden_tag() }}
+
+                    {{ form.search.label(class='label venus') }}
+                    {{ form.search(size=100, class='input input--text', autofocus="true") }}
+
+                    {% for error in form.search.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+
+                    {{ buttons.inputSubmit(caption="Search") }}
+
+                </form>
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}
