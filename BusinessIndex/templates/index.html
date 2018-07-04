@@ -13,13 +13,18 @@
                 <form action="/search" method="post" novalidate>
                     {{ form.hidden_tag() }}
 
-                    {{ form.search.label(class='label venus') }}
-                    {{ form.search(size=100, class='input input--text', autofocus="true") }}
+                    {#{{ form.search.label(class='label venus', style='display:inline;') }}#}
+
+                    {{ form.search(size=100,
+                        class='input input--text',
+                        style='display:inline;', autofocus="true") }}
 
                     {% for error in form.search.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
 
+                    <span style="padding-left: 20px;"></span>
+                
                     {{ buttons.inputSubmit(caption="Search") }}
 
                 </form>
