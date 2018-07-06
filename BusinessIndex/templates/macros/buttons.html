@@ -1,9 +1,16 @@
-
 {# Use like:
             {{ primaryButton(caption="Whatever", uri=url_for('oauth_authorise', provider='CA', nextPage='shopping')) }}
         or
             {{ primaryButton(caption="Whatever", href='/shopping') }}
 #}
+{#
+{% macro button(caption=none, style='primary', type='button', class='') %}
+    {% set classes = classlist(class) %}
+    {% do classes.add('btn', 'btn--' + style) %}
+    <button type="{{ type }}" {{ classes }} {{ kwargs|xmlattr }} >
+        {{ caption|e }}
+    </button>
+{% endmacro %}#}
 
 {% macro inputSubmit(caption="") %}
 

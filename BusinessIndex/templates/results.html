@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="page__container container">
+
+        {{ spacing.tiny() }} {{ links.back(caption="Back", href="/") }}
+
+        {{ spacing.tiny() }}
+
+        <div class="panel panel--info">
+            <div class="panel__header">
+                <div class="venus">Query Results</div>
+            </div>
+            <div class="panel__body">
+                <div>{{ companies['total'] }} Rows found.</div>
+            </div>
+        </div>
+
+        {{ spacing.tiny() }}
+
+        <div class="collator-item">
+
+            <table class="table table__dense">
+                <thead class="table--head">
+                <tr>
+                    <th scope="col" class="table--header--cell">Business Name</th>
+                    <th scope="col" class="table--header--cell">Post Code</th>
+                    <th scope="col" class="table--header--cell">Company #</th>
+
+                    <th scope="col" class="table--header--cell">Employment Bands</th>
+                    <th scope="col" class="table--header--cell">Industry Code</th>
+                    <th scope="col" class="table--header--cell">Legal Status</th>
+                    <th scope="col" class="table--header--cell">PAYE Reference</th>
+                    <th scope="col" class="table--header--cell">Trading Status</th>
+                    <th scope="col" class="table--header--cell">Turnover</th>
+                    <th scope="col" class="table--header--cell">UPRN</th>
+                    <th scope="col" class="table--header--cell">VAT Reference</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in companies['hits'] %}
+                    <tr class="table--row">
+                        <td class="table--cell">{{ item['_source']['BusinessName'] }}</td>
+                        <td class="table--cell">{{ item['_source']['PostCode'] }}</td>
+
+                        <td class="table--cell">{{ item['_source']['CompanyNo'] }}</td>
+                        <td class="table--cell">{{ item['_source']['EmploymentBands'] }}</td>
+                        <td class="table--cell">{{ item['_source']['IndustryCode'] }}</td>
+                        <td class="table--cell">{{ item['_source']['LegalStatus'] }}</td>
+                        <td class="table--cell">{{ item['_source']['PayeRefs'] }}</td>
+                        <td class="table--cell">{{ item['_source']['TradingStatus'] }}</td>
+                        <td class="table--cell">{{ item['_source']['Turnover'] }}</td>
+                        <td class="table--cell">{{ item['_source']['UPRN'] }}</td>
+                        <td class="table--cell">{{ item['_source']['VatRefs'] }}</td>
+
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+            <div class="grid">
+                <div class="grid__col col12 u-ml-m u-mt-l u-mb-xl">
+
+                    <nav class="pagination u-mb-l" role="navigation" aria-label="Pagination (Page 1 of 35)">
+                        <div class="mars pagination__position">Page 1 of 35</div>
+                        <ul class="pagination__items">
+                            <li class="pagination__item pagination__item--active pagination__item--current"><a
+                                    href="javascript:;" class="pagination__link" aria-label="Current page (1 of 35)"
+                                    aria-current="true">1</a></li>
+                            <li class="pagination__item"><a href="javascript:;" class="pagination__link" rel="next"
+                                                            aria-label="Go to page 2">2</a></li>
+                            <li class="pagination__item"><a href="javascript:;" class="pagination__link"
+                                                            aria-label="Go to page 3">3</a></li>
+                            <li class="pagination__item"><a href="javascript:;" class="pagination__link"
+                                                            aria-label="Go to page 4">4</a></li>
+                            <li class="pagination__item"><a href="javascript:;" class="pagination__link"
+                                                            aria-label="Go to page 5">5</a></li>
+                            <li class="pagination__item pagination__item--gap"><a style="text-decoration: none;">&hellip;</a>
+                            </li>
+                            <li class="pagination__item"><a href="javascript:;" class="pagination__link"
+                                                            aria-label="Go to the last page">35</a></li>
+                            <li class="pagination__item pagination__item--next"><a href="javascript:;"
+                                                                                   class="pagination__link"
+                                                                                   aria-label="Go to the next page (Page 2)"
+                                                                                   rel="next">Next</a></li>
+                        </ul>
+
+                    </nav>
+                </div>
+            </div>
+
+            {{ spacing.tiny() }}
+
+        </div>
+    </div>
+{% endblock %}
