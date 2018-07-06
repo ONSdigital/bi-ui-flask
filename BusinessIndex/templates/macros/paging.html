@@ -3,7 +3,7 @@
 
     <style>
         .currentItem {
-           padding: 8px;
+            padding: 8px;
             background-color: #033e58;
             border-color: #4263c2;
             color: white;
@@ -14,16 +14,24 @@
     </style>
 
     <nav class="pagination u-mb-l" role="navigation" aria-label="Pagination" style="padding-bottom: 0;">
+
         <div style="padding-bottom: 20px;"
              class="mars pagination__position u-hidden">Page {{ pagination.page }} of {{ pagination.pages }}</div>
 
         {% if pagination.has_prev %}
             <span class="pagination__item pagination__item--previous">
-                <a style="padding-left: 0;text-decoration: none;float:none;"
+                <a class="hover" style="text-decoration: none;float:none;"
                    href="{{ url_for_other_page(pagination.page - 1) }}">
                     Previous
                 </a>
             </span>
+        {% else %}
+            {#
+                If the user is on page one,
+                add some left padding so ithe line
+                doesn't shift to the left
+            #}
+            <span style="padding-left: 20px;"/>
         {% endif %}
 
         {%- for page in pagination.iter_pages() %}
