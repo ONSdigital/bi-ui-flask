@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, url_for, abort, session
+from flask import render_template, request, url_for, abort, session
 from BusinessIndex import app
 from forms import SearchForm
 from search import search
@@ -11,13 +11,6 @@ from pagination import Pagination
 def index():
     form = SearchForm()
     return render_template('index.html', form=form)
-
-
-# @app.route('/search', methods=['GET', 'POST'])
-# def search_form_post():
-#     form = SearchForm()
-#     results = search(form.search.data)
-#     return render_template('results.html', companies=results)
 
 
 @app.route('/search/', defaults={'page': 1}, methods=['GET', 'POST'])
