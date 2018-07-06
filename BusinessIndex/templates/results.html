@@ -8,70 +8,90 @@
 
         {{ spacing.tiny() }}
 
-        <div class="panel panel--info">
-            <div class="panel__header">
-                <div class="venus">Query Results</div>
-            </div>
-            <div class="panel__body">
-                <div>{{ companies['items_found'] }} Rows found.</div>
-                {% if  companies['items_found'] != companies['total'] %}
-                    <div class="badge badge--amber">
-                        limited to {{ companies['total'] }} rows
+        {% if companies['total'] == 0 %}
+            <div class="panel panel--simple panel--warn">
+                <div class="panel__body">
+                    <h2 class="venus">Results</h2>
+                    <div>No rows found
                     </div>
+                </div>
+            </div>
+
+        {% else %}
+
+            <div class="panel panel--simple panel--success">
+                <div class="panel__body">
+                    <h2 class="venus">{{ companies['items_found'] }} Rows found.</h2>
+                    {% if  companies['items_found'] != companies['total'] %}
+                        <div class="badge badge--amber">
+                            limited to {{ companies['total'] }} rows
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        {% endif %}
+
+        {{ spacing.tiny() }}
+
+        {% if  companies['paging_active'] %}
+            {{ paging.render(pagination) }}
+        {% endif %}
+
+
+        {% if companies['total'] != 0 %}
+
+            <div class="collator-item">
+
+
+                <table class="table table__dense">
+                    <thead class="table--head">
+                    <tr>
+                        <th scope="col" class="table--header--cell">Business Name</th>
+                        <th scope="col" class="table--header--cell">Post Code</th>
+                        <th scope="col" class="table--header--cell">Company #</th>
+
+                        <th scope="col" class="table--header--cell">Employment Bands</th>
+                        <th scope="col" class="table--header--cell">Industry Code</th>
+                        <th scope="col" class="table--header--cell">Legal Status</th>
+                        <th scope="col" class="table--header--cell">PAYE Reference</th>
+                        <th scope="col" class="table--header--cell">Trading Status</th>
+                        <th scope="col" class="table--header--cell">Turnover</th>
+                        <th scope="col" class="table--header--cell">UPRN</th>
+                        <th scope="col" class="table--header--cell">VAT Reference</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in companies['hits'] %}
+                        <tr class="table--row">
+                            <td class="table--cell">{{ item['_source']['BusinessName'] }}</td>
+                            <td class="table--cell">{{ item['_source']['PostCode'] }}</td>
+
+                            <td class="table--cell">{{ item['_source']['CompanyNo'] }}</td>
+                            <td class="table--cell">{{ item['_source']['EmploymentBands'] }}</td>
+                            <td class="table--cell">{{ item['_source']['IndustryCode'] }}</td>
+                            <td class="table--cell">{{ item['_source']['LegalStatus'] }}</td>
+                            <td class="table--cell">{{ item['_source']['PayeRefs'] }}</td>
+                            <td class="table--cell">{{ item['_source']['TradingStatus'] }}</td>
+                            <td class="table--cell">{{ item['_source']['Turnover'] }}</td>
+                            <td class="table--cell">{{ item['_source']['UPRN'] }}</td>
+                            <td class="table--cell">{{ item['_source']['VatRefs'] }}</td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+                {{ spacing.tiny() }}
+                {% if  companies['paging_active'] %}
+                    {{ paging.render(pagination) }}
+
+                    {{ spacing.tiny() }}
                 {% endif %}
-        </div>
-    </div>
 
-    {{ paging.render(pagination) }}
-
-    <div class="collator-item">
-
-
-        <table class="table table__dense">
-            <thead class="table--head">
-            <tr>
-                <th scope="col" class="table--header--cell">Business Name</th>
-                <th scope="col" class="table--header--cell">Post Code</th>
-                <th scope="col" class="table--header--cell">Company #</th>
-
-                <th scope="col" class="table--header--cell">Employment Bands</th>
-                <th scope="col" class="table--header--cell">Industry Code</th>
-                <th scope="col" class="table--header--cell">Legal Status</th>
-                <th scope="col" class="table--header--cell">PAYE Reference</th>
-                <th scope="col" class="table--header--cell">Trading Status</th>
-                <th scope="col" class="table--header--cell">Turnover</th>
-                <th scope="col" class="table--header--cell">UPRN</th>
-                <th scope="col" class="table--header--cell">VAT Reference</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            {% for item in companies['hits'] %}
-                <tr class="table--row">
-                    <td class="table--cell">{{ item['_source']['BusinessName'] }}</td>
-                    <td class="table--cell">{{ item['_source']['PostCode'] }}</td>
-
-                    <td class="table--cell">{{ item['_source']['CompanyNo'] }}</td>
-                    <td class="table--cell">{{ item['_source']['EmploymentBands'] }}</td>
-                    <td class="table--cell">{{ item['_source']['IndustryCode'] }}</td>
-                    <td class="table--cell">{{ item['_source']['LegalStatus'] }}</td>
-                    <td class="table--cell">{{ item['_source']['PayeRefs'] }}</td>
-                    <td class="table--cell">{{ item['_source']['TradingStatus'] }}</td>
-                    <td class="table--cell">{{ item['_source']['Turnover'] }}</td>
-                    <td class="table--cell">{{ item['_source']['UPRN'] }}</td>
-                    <td class="table--cell">{{ item['_source']['VatRefs'] }}</td>
-
-                </tr>
-            {% endfor %}
-
-            </tbody>
-        </table>
-
-        {{ spacing.tiny() }}
-        {{ paging.render(pagination) }}
-
-        {{ spacing.tiny() }}
-
-    </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

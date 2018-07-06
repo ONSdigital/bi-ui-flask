@@ -3,17 +3,20 @@
 
     <style>
         .currentItem {
-            padding: 8px;
-            background: #4263C2;
+           padding: 8px;
+            background-color: #033e58;
+            border-color: #4263c2;
             color: white;
+
+            border-radius: 3px;
             text-align: center;
             text-decoration: none;
         }
     </style>
 
-    <nav class="pagination u-mb-l" role="navigation" style="padding-bottom: 0;">
+    <nav class="pagination u-mb-l" role="navigation" aria-label="Pagination" style="padding-bottom: 0;">
         <div style="padding-bottom: 20px;"
-             class="mars pagination__position">Page {{ pagination.page }} of {{ pagination.pages }}</div>
+             class="mars pagination__position u-hidden">Page {{ pagination.page }} of {{ pagination.pages }}</div>
 
         {% if pagination.has_prev %}
             <span class="pagination__item pagination__item--previous">

@@ -26,5 +26,11 @@ def search(search_string, page_no):
     if res['hits']['total'] > Config.MAX_ITEMS_RETURNED:
         res['hits']['total'] = Config.MAX_ITEMS_RETURNED
 
+    if res['hits']['total'] > Config.ITEMS_PER_PAGE:
+        res['hits']['paging_active'] = True
+    else:
+        res['hits']['paging_active'] = False
+
+
     return res['hits']
 
