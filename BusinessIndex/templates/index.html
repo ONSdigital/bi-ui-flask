@@ -10,7 +10,7 @@
 
                 {{ heading.two("Search the UK business population") }}
 
-                <form action="/search" method="post" novalidate>
+                <form action="/search/" method="post" novalidate>
                     {{ form.hidden_tag() }}
 
                     {#{{ form.search.label(class='label venus', style='display:inline;') }}#}
@@ -22,7 +22,6 @@
                     {% for error in form.search.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
-
 
                 </form>
             </div>

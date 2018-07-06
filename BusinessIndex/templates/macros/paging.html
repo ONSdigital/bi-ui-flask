@@ -1,0 +1,55 @@
+{% macro render(pagination) %}
+
+
+    <style>
+        .currentItem {
+            padding: 8px;
+            background: #4263C2;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+
+    <nav class="pagination u-mb-l" role="navigation" style="padding-bottom: 0;">
+        <div style="padding-bottom: 20px;"
+             class="mars pagination__position">Page {{ pagination.page }} of {{ pagination.pages }}</div>
+
+        {% if pagination.has_prev %}
+            <span class="pagination__item pagination__item--previous">
+                <a style="padding-left: 0;text-decoration: none;float:none;"
+                   href="{{ url_for_other_page(pagination.page - 1) }}">
+                    Previous
+                </a>
+            </span>
+        {% endif %}
+
+        {%- for page in pagination.iter_pages() %}
+            {% if page %}
+                {% if page != pagination.page %}
+                    <span class="pagination__item pagination__item--next">
+                        <a style="text-decoration: none;float:none;" class="pagination__item"
+                           href="{{ url_for_other_page(page) }}">
+                            {{ page }}
+                        </a>
+                    </span>
+                {% else %}
+                    <span class="currentItem pagination__item pagination__item--active pagination__item--current">{{ page }}</span>
+                {% endif %}
+            {% else %}
+                <span class="pagination__item pagination__item--gap">&hellip;</span>
+            {% endif %}
+        {%- endfor %}
+
+        {% if pagination.has_next %}
+            <span class="pagination__item pagination__item--next">
+                <a style="float: none;text-decoration: none;"
+                   href="{{ url_for_other_page(pagination.page + 1) }}">
+                    Next
+                </a>
+            </span>
+        {% endif %}
+
+    </nav>
+
+{% endmacro %}
