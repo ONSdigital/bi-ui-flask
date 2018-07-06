@@ -1,6 +1,6 @@
 
 from elasticsearch import Elasticsearch
-from config import Config
+from appconfig import Config
 import json
 
 es = Elasticsearch(['http://localhost:9200'])

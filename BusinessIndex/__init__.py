@@ -1,5 +1,5 @@
 from flask import Flask
-from config import Config
+from BusinessIndex.appconfig import Config
 
 app = Flask(__name__)
 

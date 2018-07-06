@@ -2,7 +2,7 @@ from flask import render_template, request, url_for, abort, session
 from BusinessIndex import app
 from forms import SearchForm
 from search import search
-from config import Config
+from appconfig import Config
 from pagination import Pagination
 
 
