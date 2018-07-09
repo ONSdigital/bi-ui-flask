@@ -1,7 +1,7 @@
 from flask import render_template, request, url_for, abort, session
 from BusinessIndex import app
 import forms
-from search import search
+import search
 from appconfig import Config
 from pagination import Pagination
 
@@ -49,7 +49,7 @@ def name():
 
 @app.route('/search_all/', defaults={'page': 1}, methods=['GET', 'POST'])
 @app.route('/search_all/page/<int:page>', methods=['GET', 'POST'])
-def show_results(page):
+def show_all_results(page):
     form = forms.AllSearchForm()
     search_string = form.search.data
 
@@ -58,12 +58,59 @@ def show_results(page):
     else:
         session['search_string'] = search_string
 
-    results = search(search_string, page)
+    results = search.search_all(search_string, page)
+
     count = results['total']
+
     if not results and page != 1:
         abort(404)
+
     pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
-    return render_template('results.html', pagination=pagination, companies=results)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs)
+
+
+@app.route('/search_name/', defaults={'page': 1}, methods=['GET', 'POST'])
+@app.route('/search_name/page/<int:page>', methods=['GET', 'POST'])
+def show_name_results(page):
+    form = forms.NameSearchForm()
+    search_string = form.search.data
+
+    if search_string is None:
+        search_string = session['search_string']
+    else:
+        session['search_string'] = search_string
+
+    results = search.search_name(search_string, page)
+
+    count = results['total']
+
+    if not results and page != 1:
+        abort(404)
+
+    pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs)
+
+
+@app.route('/search_postcode/', defaults={'page': 1}, methods=['GET', 'POST'])
+@app.route('/search_postcode/page/<int:page>', methods=['GET', 'POST'])
+def show_postcode_results(page):
+    form = forms.PostcodeSearchForm()
+    search_string = form.search.data
+
+    if search_string is None:
+        search_string = session['search_string']
+    else:
+        session['search_string'] = search_string
+
+    results = search.search_postcode(search_string, page)
+
+    count = results['total']
+
+    if not results and page != 1:
+        abort(404)
+
+    pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs)
 
 
 def url_for_other_page(page):

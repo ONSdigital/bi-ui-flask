@@ -6,4 +6,5 @@ class Config(object):
     ITEMS_PER_PAGE = 25
     MAX_ITEMS_RETURNED = 5000
     INDEX = 'bi'
+    ELASTICSEARCH_URL = ['http://localhost:9200']
 
