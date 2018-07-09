@@ -50,11 +50,14 @@
 
 {% endmacro %}
 
-{% macro link(caption="", uri=None, href=None) %}
+{% macro link(caption="", active=False,  href=None, style=None) %}
 
-    {% call _render_button('btn btn--link', uri, href) %}
-        {{ caption|e }}
-    {% endcall %}
+    {% if active %}
+        <a class="btn btn--link" href="{{ href }}" style="{{ style }}">{{ caption|e }}</a>
+    {% else %}
+        <a class="btn btn--link" href="{{ href }}"
+                style="{{ style }}">{{ caption|e }}</a>
+    {% endif %}
 
 {% endmacro %}
 

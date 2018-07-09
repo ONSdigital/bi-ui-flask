@@ -3,6 +3,16 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 
-class SearchForm(FlaskForm):
+class AllSearchForm(FlaskForm):
+    search = StringField('Enter Search Criteria', validators=[DataRequired()])
+    submit = SubmitField('Search')
+
+
+class NameSearchForm(FlaskForm):
+    search = StringField('Enter Search Criteria', validators=[DataRequired()])
+    submit = SubmitField('Search')
+
+
+class PostcodeSearchForm(FlaskForm):
     search = StringField('Enter Search Criteria', validators=[DataRequired()])
     submit = SubmitField('Search')

@@ -8,11 +8,10 @@
 
             <div class="wrapper narrow">
 
-
-                <form action="/search_all/" method="post" novalidate>
+                <form action="/search/" method="post" novalidate>
                     {{ form.hidden_tag() }}
 
-                    {{ heading.four('Search All Fields:') }}
+                    {{ heading.four('Search by Post Code:') }}
                     <div style="width:40%;">
                         {{ form.search(size=100,
                         class='input input--text',
