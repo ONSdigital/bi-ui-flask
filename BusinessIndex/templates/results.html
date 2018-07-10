@@ -65,7 +65,6 @@
                         <tr class="table--row">
                             <td class="table--cell">{{ item['_source']['BusinessName'] }}</td>
                             <td class="table--cell">{{ item['_source']['PostCode'] }}</td>
-
                             <td class="table--cell">{{ item['_source']['CompanyNo'] }}</td>
                             <td class="table--cell">{{ item['_source']['EmploymentBands'] }}</td>
                             <td class="table--cell">{{ item['_source']['IndustryCode'] }}</td>
@@ -83,12 +82,16 @@
 
                 {{ spacing.tiny() }}
                 {% if  companies['paging_active'] %}
-                    {{ paging.render(pagination) }}
 
+                    {{ paging.render(pagination) }}
                     {{ spacing.tiny() }}
+
                 {% endif %}
 
             </div>
+
         {% endif %}
+
     </div>
+
 {% endblock %}
