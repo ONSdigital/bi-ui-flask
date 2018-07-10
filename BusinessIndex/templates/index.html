@@ -4,29 +4,32 @@
 
     <section>
 
-        <div class="main-content">
+        <div class="main-content" id="search-all" style="padding-top: 0;">
 
-            <div class="wrapper narrow">
+            <div class="panel panel--info" style="min-height:400px;">
+                <div class="panel__header">
+                    <div class="venus">Search all fields</div>
+                </div>
+                <div class="panel__body">
 
+                    <form action="/search_all/" method="post" novalidate>
+                        {{ form.hidden_tag() }}
 
-                <form action="/search_all/" method="post" novalidate>
-                    {{ form.hidden_tag() }}
-
-                    {{ heading.four('Search All Fields:') }}
-                    <div style="width:40%;">
-                        {{ form.search(size=100,
+                        {{ heading.four('Search All Fields:') }}
+                        <div style="width:40%;">
+                            {{ form.search(size=100,
                         class='input input--text',
                         style='display:inline;', autofocus="true") }}
 
-                    </div>
-                    {% for error in form.search.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
+                        </div>
+                        {% for error in form.search.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-
     </section>
 
 {% endblock %}

@@ -4,8 +4,6 @@
 
     <div class="page__container container">
 
-{#        {{ spacing.tiny() }} {{ links.back(caption="Back", href="/") }}#}
-
         {{ spacing.tiny() }}
 
         {% if companies['total'] == 0 %}
@@ -21,7 +19,7 @@
 
             <div class="panel panel--simple panel--success">
                 <div class="panel__body">
-                    <h2 class="venus">{{ companies['items_found'] }} Rows found.</h2>
+                    <h2 class="venus">{{ companies['items_found'] }} Rows found for [{{ companies['search_string'] }}]</h2>
                     {% if  companies['items_found'] != companies['total'] %}
                         <div class="badge badge--amber">
                             limited to {{ companies['total'] }} rows

@@ -89,7 +89,7 @@ td {
     color: #222222;
 }
 
-.sortable span[role="button"]:hover, {
+.sortable span[role="button"]:hover {
     cursor: pointer;
     text-decoration: underline;
     outline: none;

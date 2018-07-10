@@ -1,0 +1,180 @@
+<div style="padding-top: 0;">
+
+    <div class="panel panel--info" style="min-height:400px;">
+        <div class="panel__header">
+            <div class="venus">Filters</div>
+        </div>
+        <div class="panel__body">
+
+            <div class="guidance js-details" data-hide-label="Employment Bands"
+                 data-show-label="Employment Bands">
+
+                <a href="#bands-body"
+                   class="guidance__link js-details-trigger js-details-label mars"
+                >Employment Bands</a>
+
+                <div class="guidance__main js-details-body" id="bands-body"
+                     aria-hidden="true">
+
+                    <div class="guidance__content mars">
+
+                        {% set bands = [
+                            {'banda': 'A [0]'},{'bandb': 'B [1]'},{'bandc': 'C [2-4]'},{'bandd': 'D [5-9]'},
+                            {'bande': 'E [10-19]'},{'bandf': 'F [20-24]'},{'bandg': 'G [25-49]'},
+                            {'bandh': 'H [50-74]'},{'bandi': 'I [75-99]'},{'bandj': 'J [100-149]'},
+                            {'bandk': 'K [150-199'},{'bandl': 'L [200-249]'},{'bandm': 'M [250-299]'},
+                            {'bandn': 'N [300-499]'},{'bando': 'O [500+]'}
+                         ] %}
+
+                        <fieldset>
+
+                            {% for b in bands %}
+                                {% for key, value in b.items() %}
+                                    <div class="field__item js-focusable-box" style="margin-left: 0;padding-right: o;">
+                                        <input class="input input--checkbox js-focusable"
+                                               name="checkbox-answer"
+                                               value="{{ value }}"
+                                               onchange="update_filter(this)"
+                                               id="{{ key }}" type="checkbox">
+                                        <label class="label label--inline venus" for="{{ key }}"
+                                               style="font-size: .8em;margin-top: .8%;">
+                                            {{ value }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guidance js-details" data-hide-label="Turnover Bands"
+                 data-show-label="Turnover Bands">
+
+                <a href="#turnover-body"
+                   class="guidance__link js-details-trigger js-details-label mars"
+                >Turnover Bands</a>
+
+                <div class="guidance__main js-details-body" id="turnover-body"
+                     aria-hidden="true">
+                    <div class="guidance__content mars">
+
+                        {% set turnover = [
+                            {'turna': 'A [0-99]'}, {'turnb': 'B [100-249]'}, {'turnc': 'C [250-499]'},
+                            {'turnd': 'D [500-999]'},{'turne': 'E [1,000-1,999]'}, {'turnf': 'F [2,000-4,999]'}
+                            ,{'turng': 'G [5,000-9,999]'}, {'turnh': 'H [10,000-49,999]'}, {'turni': 'I [ 50,000+]'}
+                            ] %}
+
+                        <fieldset>
+                            {% for t in turnover %}
+                                {% for key, value in t.items() %}
+                                    <div class="field__item js-focusable-box" style="margin-left: 0;">
+                                        <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                               value="{{ value }}"
+                                               id="{{ key }}" type="checkbox">
+                                        <label class="label label--inline venus" for="{{ key }}"
+                                               style="font-size: .8em;margin-top: .8%;padding-right: 0;">
+                                            {{ value }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </fieldset>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="guidance js-details" data-hide-label="Trading Status"
+                 data-show-label="Trading Status">
+
+                <a href="#trading-body"
+                   class="guidance__link js-details-trigger js-details-label mars"
+                >Trading Status</a>
+
+                <div class="guidance__main js-details-body" id="trading-body"
+                     aria-hidden="true">
+                    <div class="guidance__content mars">
+
+                        {% set trading = [
+                            {'tradea': 'Active'}, {'tradec': 'Closed'}, {'traded': 'Dormant'},
+                            {'tradei': 'Insolvent'}
+                        ] %}
+
+                        <fieldset>
+                            {% for t in trading %}
+                                {% for key, value in t.items() %}
+                                    <div class="field__item js-focusable-box" style="margin-left: 0;">
+                                        <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                               value="{{ value }}"
+                                               id="{{ key }}" type="checkbox">
+                                        <label class="label label--inline venus " for="{{ key }}"
+                                               style="font-size: .8em;margin-top: .8%;padding-right: 0;">
+                                            {{ value }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </fieldset>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="guidance js-details" data-hide-label="Legal Status"
+                 data-show-label="Legal Status">
+
+                <a href="#legal-body"
+                   class="guidance__link js-details-trigger js-details-label mars"
+                >Legal Status</a>
+
+                <div class="guidance__main js-details-body" id="legal-body"
+                     aria-hidden="true">
+                    <div class="guidance__content mars">
+
+                        {% set trading = [
+                            {'legal1': 'Company'}, {'legal2': 'Sole Proprietor'}, {'legal3': 'Partnership'},
+                            {'legal4': 'Public Corporation'}, {'legal5': 'Central Government'},
+                            {'legal6': 'Local Authority'},
+                            {'legal7': 'Non-Profit Organisation'}, {'legal8': 'Charity'}
+                        ] %}
+
+                        <fieldset>
+                            {% for t in trading %}
+                                {% for key, value in t.items() %}
+                                    <div class="field__item js-focusable-box" style="margin-left: 0;">
+                                        <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                               value="{{ value }}"
+                                               id="{{ key }}" type="checkbox">
+                                        <label class="label label--inline venus " for="{{ key }}"
+                                               style="font-size: .8em;margin-top: .8%;padding-right: 0;">
+                                            {{ value }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </fieldset>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{{ spacing.small() }}
+
+<script>
+
+    function update_filter(checkbox) {
+        if (checkbox.checked) {
+            console.log("The check box is checked.: " + checkbox.id + ", value: " + checkbox.value);
+            //alert("The check box is checked.: " + checkbox.id + ", value: " + checkbox.value);
+        }
+        else {
+            console.log("The check box is not checked.");
+        }
+    }
+
+</script>

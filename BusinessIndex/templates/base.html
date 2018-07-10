@@ -19,16 +19,42 @@
     <link rel="stylesheet" href="https://cdn.ons.gov.uk/sdc/8f80aaa/css/styles.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/registers-main.css') }}">
 
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
     <!--[if gt IE 8]><!-->
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'has-js')</script>
     <!--<![endif]-->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='https://cdn.ons.gov.uk/sdc/0bceacd/scripts/bundle.min.js'></script>
+
     <!-- to stop the annoying shift when the scrollbar is shown we show it all the time -->
     <style>
+
         html {
             height: 101%;
         }
+
+        .filter {
+            width: 25%;
+            float: left;
+        }
+
+        .main {
+            width: 75%;
+            float: left;
+            padding-left: 5px;
+            padding-top: 0;
+        }
+
+        #nav {
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
     </style>
+
 </head>
 
 <body>
@@ -41,21 +67,23 @@
 {% import 'macros/input.html'    as input %}
 {% import 'macros/paging.html' as paging %}
 
-{% from "macros/header.html" import header %}
-{% from "macros/footer.html" import footer %}
 
+{% include 'header.html' %}
 
-{{ header(serviceName="Business Index",
-        serviceDescription='A list of UK businesses for statistical use across government',
-        tabs=tabs) }}
+<div class="wrapper narrow" style="padding: 0;">
 
-{% block content %}{% endblock %}
+    <div class="filter" id="nav">
+        {% include 'filter.html' %}
+    </div>
+
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+</div>
 
 {{ spacing.extraLarge() }}
-{{ footer() }}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src='https://cdn.ons.gov.uk/sdc/0bceacd/scripts/bundle.min.js'></script>
+{% include 'footer.html' %}
 
 </body>
 
