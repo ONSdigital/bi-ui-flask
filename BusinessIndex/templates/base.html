@@ -31,30 +31,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src='https://cdn.ons.gov.uk/sdc/0bceacd/scripts/bundle.min.js'></script>
 
-    <script>
-
-        function resizeDiv() {
-
-            console.log("in resize")
-
-            var expand = $('#expand');
-            console.log("expand: " + expand.height());
-            var filter = $('#filter');
-            console.log("filter: " + filter.height());
-            var panel = $('#search-panel');
-            console.log("search-panel: " + panel.height());
-            var height = filter.height();
-            console.log("resizing div: " + height);
-
-            expand.height(height);
-            panel.height(height);
-            expand.height(height);
-
-
-
-        }
-
-    </script>
 </head>
 
 <body>
@@ -70,7 +46,7 @@
 
 {% include 'header.html' %}
 
-<div class="wrapper narrow" id="expand" style="padding: 0;">
+<div class="wrapper narrow" id="expand" style="padding: 0;height: 400px;" >
 
     <div class="filter" id="filter">
         {% include 'filter.html' %}
@@ -86,5 +62,6 @@
 {% include 'footer.html' %}
 
 </body>
+
 
 </html>

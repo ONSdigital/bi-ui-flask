@@ -12,10 +12,37 @@ html {
     float: left;
     padding-left: 5px;
     padding-top: 0;
+    padding-bottom: 0;
 }
 
 .search {
     position: sticky;
     position: -webkit-sticky;
     top: 0;
+}
+
+.accordian {
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    white-space: nowrap;
+    display:block;
+}
+
+.accordian:after {
+    content: '\203a';
+    color: #033E58;
+    font-weight: bold;
+    float: left;
+    padding: 0 10px 0 0;
+}
+
+.active:after {
+    content: "\2304";
+    color: #033E58;
+}
+
+.content {
+    transition: height 0.2s ease-out;
 }
