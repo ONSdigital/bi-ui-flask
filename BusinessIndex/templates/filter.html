@@ -24,7 +24,7 @@
                     {% for b in bands %}
                         {% for key, value in b.items() %}
                             <div class="field__item js-focusable-box" style="margin-left: 0;padding-right: o;">
-                                <input class="input input--checkbox js-focusable"
+                                <input class="input input--checkbox "
                                        name="checkbox-answer"
                                        value="{{ value }}"
                                        onchange="update_filter(this)"
@@ -54,7 +54,7 @@
                     {% for t in turnover %}
                         {% for key, value in t.items() %}
                             <div class="field__item js-focusable-box" style="margin-left: 0;">
-                                <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                <input class="input input--checkbox" name="checkbox-answer"
                                        value="{{ value }}"
                                        id="{{ key }}" type="checkbox">
                                 <label class="label label--inline venus" for="{{ key }}"
@@ -79,7 +79,7 @@
                     {% for t in trading %}
                         {% for key, value in t.items() %}
                             <div class="field__item js-focusable-box" style="margin-left: 0;">
-                                <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                <input class="input input--checkbox" name="checkbox-answer"
                                        value="{{ value }}"
                                        id="{{ key }}" type="checkbox">
                                 <label class="label label--inline venus " for="{{ key }}"
@@ -106,7 +106,7 @@
                     {% for t in trading %}
                         {% for key, value in t.items() %}
                             <div class="field__item js-focusable-box" style="margin-left: 0;">
-                                <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                <input class="input input--checkbox" name="checkbox-answer"
                                        value="{{ value }}"
                                        id="{{ key }}" type="checkbox">
                                 <label class="label label--inline venus " for="{{ key }}"
