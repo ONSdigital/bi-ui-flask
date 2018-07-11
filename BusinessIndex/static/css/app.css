@@ -28,21 +28,32 @@ html {
     outline: none;
     white-space: nowrap;
     display:block;
+    border: none;
+    position:relative;
+    transition: 0.4s;
 }
 
 .accordion:after {
-    content: '\203a';
+    content: '\25ba';
     color: #033E58;
     font-weight: bold;
     float: left;
     padding: 0 10px 0 0;
+    position: center;
+    white-space: pre;
+    top:0;
+    border: none;
 }
 
 .active:after {
-    content: "\2304";
+    content: "\25bc";
     color: #033E58;
+    font-weight: bold;
+    float:left;
+    border: none;
 }
 
 .content {
     transition: height 0.2s ease-out;
 }
+
