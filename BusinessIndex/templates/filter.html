@@ -7,7 +7,7 @@
 
         <div class="panel__body">
 
-            <label class="accordian">Employment Bands</label>
+            <label class="accordion">Employment Bands</label>
 
             <div class="content mars" id="employment-toggle" style="display: none;">
 
@@ -40,7 +40,7 @@
 
             </div>
 
-            <div class="accordian">Turnover Bands</div>
+            <div class="accordion">Turnover Bands</div>
 
             <div class="content mars" id="turnover-toggle" style="display: none;">
 
@@ -67,7 +67,7 @@
                 </fieldset>
             </div>
 
-            <div class="accordian">Trading Status</div>
+            <div class="accordion">Trading Status</div>
 
             <div class="content mars" id="trading-toggle" style="display: none;">
                 {% set trading = [
@@ -92,7 +92,7 @@
                 </fieldset>
             </div>
 
-            <div class="accordian">Legal Status</div>
+            <div class="accordion">Legal Status</div>
 
             <div class="content mars" id="legal-toggle" style="display: none;">
                 {% set trading = [
@@ -150,7 +150,7 @@
     }
 
     $(function () {
-        var coll = document.getElementsByClassName("accordian");
+        var coll = document.getElementsByClassName("accordion");
         var i;
 
         for (i = 0; i < coll.length; i++) {
