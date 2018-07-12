@@ -28,7 +28,7 @@ def search_field(search_string, filters, field, page_no):
 
     filter_string = add_filters(filters)
 
-    print('query: ' + search_string + ' ' + filter_string)
+    print('filters: ' + search_string + ' ' + filter_string)
 
     if field == 'ALL':
         s = Search(using=es, index=Config.INDEX)\
@@ -37,7 +37,15 @@ def search_field(search_string, filters, field, page_no):
         s = Search(using=es, index=Config.INDEX) \
             .query("simple_query_string", query=search_string, fields=[field])
 
-    s = s.filter('terms', EmploymentBands=['M'])
+    employment_toggle = filters.get('employment-toggle', None)
+    if employment_toggle:
+        a = []
+        for v in employment_toggle[:-1]:
+            a.append(v[0])
+        a.append(employment_toggle[-1][0])
+        s = s.filter('terms', EmploymentBands=a)
+
+    # s = s.filter('terms', EmploymentBands=['M'])
 
     s = s[start:page_no * Config.ITEMS_PER_PAGE]
 
