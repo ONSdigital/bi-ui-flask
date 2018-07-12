@@ -18,11 +18,13 @@
                         {{ form.hidden_tag() }}
 
                         {{ heading.four('Search All Fields:') }}
+
                         <div style="width:40%;">
                             {{ form.search(size=100, class='input input--text',
                                     style='display:inline;', autofocus="true") }}
 
                         </div>
+
                         {% for error in form.search.errors %}
                             <span style="color: red;">[{{ error }}]</span>
                         {% endfor %}

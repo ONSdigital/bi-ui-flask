@@ -12,6 +12,7 @@ class AllSearchForm(FlaskForm):
 class NameSearchForm(FlaskForm):
     search = StringField('Enter Search Criteria', validators=[DataRequired()])
     submit = SubmitField('Search')
+    search_name_filters = HiddenField()
 
 
 class PostcodeSearchForm(FlaskForm):

@@ -1,6 +1,9 @@
-from elasticsearch import Elasticsearch
-from appconfig import Config
 import json
+
+from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Search, Q
+
+from appconfig import Config
 
 es = Elasticsearch(Config.ELASTICSEARCH_URL)
 
@@ -28,29 +31,18 @@ def search_field(search_string, filters, field, page_no):
     print('query: ' + search_string + ' ' + filter_string)
 
     if field == 'ALL':
-
-        query = json.dumps({
-            "from": start, "size": Config.ITEMS_PER_PAGE,
-            "query": {
-                "simple_query_string": {
-                    "query": search_string + ' ' + filter_string
-                }
-            }
-        })
-
+        s = Search(using=es, index=Config.INDEX)\
+            .query("simple_query_string", query=search_string)
     else:
+        s = Search(using=es, index=Config.INDEX) \
+            .query("simple_query_string", query=search_string, fields=[field])
 
-        query = json.dumps({
-            "from": start, "size": Config.ITEMS_PER_PAGE,
-            "query": {
-                "simple_string": {
-                    "query": search_string,
-                    "fields": [field],
-                }
-            }
-        })
+    s = s[start:Config.ITEMS_PER_PAGE]
 
-    res = es.search(index=Config.INDEX, body=query)
+    print(s.to_dict())
+
+    res = s.execute()
+
     res['hits']['items_found'] = res['hits']['total']
 
     if res['hits']['total'] > Config.MAX_ITEMS_RETURNED:
@@ -75,7 +67,6 @@ def check_reserved_characters(string):
 
 
 def add_filters(filters):
-
     filter_methods = {
         'employment-toggle': _employment_filter,
         'turnover-toggle': _turnover_filter,

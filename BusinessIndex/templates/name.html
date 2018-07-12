@@ -8,16 +8,19 @@
 
             <div class="wrapper narrow">
 
-                <form action="/search_name/" method="post" novalidate>
+                <form action="/search_name/" method="post" novalidate id="search-name-form">
+
                     {{ form.hidden_tag() }}
 
                     {{ heading.four('Search by Business Name:') }}
+
                     <div style="width:40%;">
                         {{ form.search(size=100,
                         class='input input--text',
                         style='display:inline;', autofocus="true") }}
 
                     </div>
+
                     {% for error in form.search.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
@@ -27,5 +30,20 @@
         </div>
 
     </section>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#search-name-form').submit(function (e) {
+
+                $('#search_name_filters').val(JSON.stringify(get_filters()));
+
+                return true;
+            });
+        });
+
+    </script>
+
 
 {% endblock %}

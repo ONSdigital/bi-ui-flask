@@ -80,12 +80,16 @@ def show_name_results(page):
     form = forms.NameSearchForm()
     search_string = form.search.data
 
+    filters = json.loads(form.search_name_filters.data)
+
     if search_string is None:
         search_string = session['search_string']
+        filters = session['filters']
     else:
         session['search_string'] = search_string
+        session['filters'] = filters
 
-    results = search.search_name(search_string, page)
+    results = search.search_name(search_string, filters, page)
 
     count = results['total']
 
