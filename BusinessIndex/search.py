@@ -5,23 +5,27 @@ import json
 es = Elasticsearch(Config.ELASTICSEARCH_URL)
 
 
-def search_postcode(search_string, page_no):
-    return search_field(search_string, 'PostCode', page_no)
+def search_postcode(search_string, filters, page_no):
+    return search_field(search_string, filters, 'PostCode', page_no)
 
 
-def search_name(search_string, page_no):
-    return search_field(search_string, 'BusinessName', page_no)
+def search_name(search_string, filters, page_no):
+    return search_field(search_string, filters, 'BusinessName', page_no)
 
 
-def search_all(search_string, page_no):
-    return search_field(search_string, 'ALL', page_no)
+def search_all(search_string, filters, page_no):
+    return search_field(search_string, filters, 'ALL', page_no)
 
 
-def search_field(search_string, field, page_no):
+def search_field(search_string, filters, field, page_no):
     start = page_no * Config.ITEMS_PER_PAGE - Config.ITEMS_PER_PAGE
 
     orig_search_string = search_string
     search_string = check_reserved_characters(search_string)
+
+    filter_string = add_filters(filters)
+
+    print('query: ' + search_string + ' ' + filter_string)
 
     if field == 'ALL':
 
@@ -29,7 +33,7 @@ def search_field(search_string, field, page_no):
             "from": start, "size": Config.ITEMS_PER_PAGE,
             "query": {
                 "simple_query_string": {
-                    "query": search_string,
+                    "query": search_string + ' ' + filter_string
                 }
             }
         })
@@ -39,7 +43,7 @@ def search_field(search_string, field, page_no):
         query = json.dumps({
             "from": start, "size": Config.ITEMS_PER_PAGE,
             "query": {
-                "simple_query_string": {
+                "simple_string": {
                     "query": search_string,
                     "fields": [field],
                 }
@@ -67,5 +71,47 @@ def check_reserved_characters(string):
     reserved = ['"', '\', ' + ', "'""]
     for tag in reserved:
         string = string.replace(tag, '\\' + tag)
-    print('Search String: ' + string)
     return string
+
+
+def add_filters(filters):
+
+    filter_methods = {
+        'employment-toggle': _employment_filter,
+        'turnover-toggle': _turnover_filter,
+        'trading-toggle': _trading_filter,
+        'legal-toggle': _legal_filter
+    }
+
+    filter_string = ''
+
+    for k in filters:
+        filter_string += filter_methods[k](filters[k])
+
+    return filter_string
+
+
+def _employment_filter(items):
+    r = 'AND EmploymentBands:('
+    for v in items[:-1]:
+        r += v[0] + " AND "
+    r += items[-1][0] + ")"
+    return r
+
+
+def _turnover_filter(items):
+    for v in items:
+        print(' value: ' + v[0])
+    return ''
+
+
+def _trading_filter(items):
+    for v in items:
+        print(' value: ' + v)
+    return ''
+
+
+def _legal_filter(items):
+    for v in items:
+        print(' value: ' + v)
+    return ''

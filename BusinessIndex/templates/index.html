@@ -4,23 +4,23 @@
 
     <section>
 
-        <div class="main-content" style="padding-top: 0;padding-bottom:0px;height:100%" id="search-panel" >
+        <div class="main-content" style="padding-top: 0;padding-bottom:0;height:100%" id="search-panel">
 
-            <div class="panel panel--info" style="min-height:300px;" >
+            <div class="panel panel--info" style="min-height:300px;">
 
                 <div class="panel__header">
                     <div class="venus">Search all fields</div>
                 </div>
                 <div class="panel__body">
 
-                    <form action="/search_all/" method="post" novalidate>
+                    <form action="/search_all/" method="post" novalidate id="search-all-form">
+
                         {{ form.hidden_tag() }}
 
                         {{ heading.four('Search All Fields:') }}
                         <div style="width:40%;">
-                            {{ form.search(size=100,
-                        class='input input--text',
-                        style='display:inline;', autofocus="true") }}
+                            {{ form.search(size=100, class='input input--text',
+                                    style='display:inline;', autofocus="true") }}
 
                         </div>
                         {% for error in form.search.errors %}
@@ -32,5 +32,18 @@
             </div>
         </div>
     </section>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#search-all-form').submit(function (e) {
+
+                $('#search_all_filters').val(JSON.stringify(get_filters()));
+
+                return true;
+            });
+        });
+
+    </script>
 
 {% endblock %}

@@ -4,6 +4,7 @@ import forms
 import search
 from appconfig import Config
 from pagination import Pagination
+import json
 
 tabs = [
     {'name': 'All Fields', 'href': '/index', 'active': True},
@@ -53,12 +54,16 @@ def show_all_results(page):
     form = forms.AllSearchForm()
     search_string = form.search.data
 
+    filters = json.loads(form.search_all_filters.data)
+
     if search_string is None:
         search_string = session['search_string']
+        filters = session['filters']
     else:
         session['search_string'] = search_string
+        session['filters'] = filters
 
-    results = search.search_all(search_string, page)
+    results = search.search_all(search_string, filters, page)
 
     count = results['total']
 
