@@ -32,10 +32,12 @@ def search_field(search_string, filters, field, page_no):
 
     if field == 'ALL':
         s = Search(using=es, index=Config.INDEX)\
-            .query("simple_query_string", query=search_string)
+            .query("query_string", query=search_string)
     else:
         s = Search(using=es, index=Config.INDEX) \
             .query("simple_query_string", query=search_string, fields=[field])
+
+    s = s.filter('terms', EmploymentBands=['M'])
 
     s = s[start:Config.ITEMS_PER_PAGE]
 
