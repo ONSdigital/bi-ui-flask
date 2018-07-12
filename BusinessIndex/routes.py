@@ -54,13 +54,12 @@ def show_all_results(page):
     form = forms.AllSearchForm()
     search_string = form.search.data
 
-    filters = json.loads(form.search_all_filters.data)
-
     if search_string is None:
         search_string = session['search_string']
         filters = session['filters']
     else:
         session['search_string'] = search_string
+        filters = json.loads(form.search_all_filters.data)
         session['filters'] = filters
 
     results = search.search_all(search_string, filters, page)
@@ -80,13 +79,12 @@ def show_name_results(page):
     form = forms.NameSearchForm()
     search_string = form.search.data
 
-    filters = json.loads(form.search_name_filters.data)
-
     if search_string is None:
         search_string = session['search_string']
         filters = session['filters']
     else:
         session['search_string'] = search_string
+        filters = json.loads(form.search_name_filters.data)
         session['filters'] = filters
 
     results = search.search_name(search_string, filters, page)

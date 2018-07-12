@@ -28,10 +28,10 @@
         {% else %}
             {#
                 If the user is on page one,
-                add some left padding so ithe line
+                add some left padding so the line
                 doesn't shift to the left
             #}
-            <span style="padding-left: 20px;"/>
+            <span style="padding-left: 20px;"></span>
         {% endif %}
 
         {%- for page in pagination.iter_pages() %}

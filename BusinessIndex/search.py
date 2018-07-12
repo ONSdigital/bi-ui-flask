@@ -39,7 +39,7 @@ def search_field(search_string, filters, field, page_no):
 
     s = s.filter('terms', EmploymentBands=['M'])
 
-    s = s[start:Config.ITEMS_PER_PAGE]
+    s = s[start:page_no * Config.ITEMS_PER_PAGE]
 
     print(s.to_dict())
 
