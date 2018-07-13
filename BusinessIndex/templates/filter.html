@@ -12,20 +12,12 @@
             <div class="content mars" id="employment-toggle" style="display: none;">
 
                 {% set bands = [
-                            {'banda': 'A [0]'},{'bandb': 'B [1]'},{'bandc': 'C [2-4]'},{'bandd': 'D [5-9]'},
-                            {'bande': 'E [10-19]'},{'bandf': 'F [20-24]'},{'bandg': 'G [25-49]'},
-                            {'bandh': 'H [50-74]'},{'bandi': 'I [75-99]'},{'bandj': 'J [100-149]'},
-                            {'bandk': 'K [150-199'},{'bandl': 'L [200-249]'},{'bandm': 'M [250-299]'},
-                            {'bandn': 'N [300-499]'},{'bando': 'O [500+]'}
-                         ] %}
-
-                {% set lookup_fields = [
-                            {'banda': 'A'},{'bandb': 'B'},{'bandc': 'C'},{'bandd': 'D'},
-                            {'bande': 'E'},{'bandf': 'F'},{'bandg': 'G'},
-                            {'bandh': 'H'},{'bandi': 'I'},{'bandj': 'J '},
-                            {'bandk': 'K'},{'bandl': 'L'},{'bandm': 'M'},
-                            {'bandn': 'N'},{'bando': 'O'}
-                         ] %}
+                    {'banda': 'A [0]'},{'bandb': 'B [1]'},{'bandc': 'C [2-4]'},{'bandd': 'D [5-9]'},
+                    {'bande': 'E [10-19]'},{'bandf': 'F [20-24]'},{'bandg': 'G [25-49]'},
+                    {'bandh': 'H [50-74]'},{'bandi': 'I [75-99]'},{'bandj': 'J [100-149]'},
+                    {'bandk': 'K [150-199'},{'bandl': 'L [200-249]'},{'bandm': 'M [250-299]'},
+                    {'bandn': 'N [300-499]'},{'bando': 'O [500+]'}
+                ] %}
 
                 <fieldset>
 
@@ -33,7 +25,6 @@
                         {% for key, value in b.items() %}
                             <div class="field__item js-focusable-box" style="margin-left: 0;padding-right: 0;">
                                 <input class="input input--checkbox js-focusable"
-                                       name="{{ lookup_fields[key] }}"
                                        value="{{ value }}"
                                        onchange="update_filter(this, 'employment-toggle')"
                                        id="{{ key }}" type="checkbox">
@@ -53,16 +44,17 @@
             <div class="content mars" id="turnover-toggle" style="display: none;">
 
                 {% set turnover = [
-                            {'turna': 'A [0-99]'}, {'turnb': 'B [100-249]'}, {'turnc': 'C [250-499]'},
-                            {'turnd': 'D [500-999]'},{'turne': 'E [1,000-1,999]'}, {'turnf': 'F [2,000-4,999]'}
-                            ,{'turng': 'G [5,000-9,999]'}, {'turnh': 'H [10,000-49,999]'}, {'turni': 'I [ 50,000+]'}
-                            ] %}
+                    {'turna': 'A [0-99]'}, {'turnb': 'B [100-249]'}, {'turnc': 'C [250-499]'},
+                    {'turnd': 'D [500-999]'},{'turne': 'E [1,000-1,999]'}, {'turnf': 'F [2,000-4,999]'},
+                    {'turng': 'G [5,000-9,999]'}, {'turnh': 'H [10,000-49,999]'}, {'turni': 'I [ 50,000+]'}
+                ] %}
 
                 <fieldset>
                     {% for t in turnover %}
                         {% for key, value in t.items() %}
                             <div class="field__item js-focusable-box" style="margin-left: 0;">
-                                <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                <input class="input input--checkbox js-focusable"
+                                       name="checkbox-answer"
                                        value="{{ value }}"
                                        onchange="update_filter(this, 'turnover-toggle')"
                                        id="{{ key }}" type="checkbox">
@@ -80,15 +72,16 @@
 
             <div class="content mars" id="trading-toggle" style="display: none;">
                 {% set trading = [
-                            {'tradea': 'Active'}, {'tradec': 'Closed'}, {'traded': 'Dormant'},
-                            {'tradei': 'Insolvent'}
-                        ] %}
+                    {'tradea': 'Active'}, {'tradec': 'Closed'}, {'traded': 'Dormant'},
+                    {'tradei': 'Insolvent'}
+                ] %}
 
                 <fieldset>
                     {% for t in trading %}
                         {% for key, value in t.items() %}
                             <div class="field__item js-focusable-box" style="margin-left: 0;">
-                                <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                <input class="input input--checkbox js-focusable"
+                                       name="checkbox-answer"
                                        value="{{ value }}"
                                        onchange="update_filter(this, 'trading-toggle')"
                                        id="{{ key }}" type="checkbox">
@@ -105,18 +98,20 @@
             <div class="accordion">Legal Status</div>
 
             <div class="content mars" id="legal-toggle" style="display: none;">
+
                 {% set trading = [
-                            {'legal1': 'Company'}, {'legal2': 'Sole Proprietor'}, {'legal3': 'Partnership'},
-                            {'legal4': 'Public Corporation'}, {'legal5': 'Central Government'},
-                            {'legal6': 'Local Authority'},
-                            {'legal7': 'Non-Profit Organisation'}, {'legal8': 'Charity'}
-                        ] %}
+                    {'legal1': 'Company'}, {'legal2': 'Sole Proprietor'}, {'legal3': 'Partnership'},
+                    {'legal4': 'Public Corporation'}, {'legal5': 'Central Government'},
+                    {'legal6': 'Local Authority'},
+                    {'legal7': 'Non-Profit Organisation'}, {'legal8': 'Charity'}
+                ] %}
 
                 <fieldset>
                     {% for t in trading %}
                         {% for key, value in t.items() %}
                             <div class="field__item js-focusable-box" style="margin-left: 0;">
-                                <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                <input class="input input--checkbox js-focusable"
+                                       name="checkbox-answer"
                                        value="{{ value }}"
                                        onchange="update_filter(this, 'legal-toggle')"
                                        id="{{ key }}" type="checkbox">
@@ -163,14 +158,10 @@
             }
         }
 
-        for (let index in filters) {
-            console.log('item: ' + index + ', value:' + filters[index]);
-        }
-
-        console.log("checkbox: " + item.id + ", value: " + item.value + ", checked: " + item.checked);
         /* remove focus otherwise it will only draw the outline when the focus is lost leading to an
         issue with a checkbox only being outlined when another checkbox is clicked.
          */
+
         item.blur();
     }
 
@@ -178,7 +169,6 @@
 
         let expand = $('#expand');
         let filter = $('#filter').height();
-        let panel = $('#search-panel');
 
         expand.height(filter);
     }

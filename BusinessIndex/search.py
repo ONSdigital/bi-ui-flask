@@ -1,7 +1,5 @@
-import json
-
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search, Q
+from elasticsearch_dsl import Search
 
 from appconfig import Config
 
@@ -26,28 +24,36 @@ def search_field(search_string, filters, field, page_no):
     orig_search_string = search_string
     search_string = check_reserved_characters(search_string)
 
-    filter_string = add_filters(filters)
-
-    print('filters: ' + search_string + ' ' + filter_string)
-
     if field == 'ALL':
-        s = Search(using=es, index=Config.INDEX)\
+        s = Search(using=es, index=Config.INDEX) \
             .query("query_string", query=search_string)
     else:
         s = Search(using=es, index=Config.INDEX) \
             .query("simple_query_string", query=search_string, fields=[field])
 
+    s = s[start:page_no * Config.ITEMS_PER_PAGE]
+
     employment_toggle = filters.get('employment-toggle', None)
     if employment_toggle:
-        a = []
-        for v in employment_toggle[:-1]:
-            a.append(v[0])
-        a.append(employment_toggle[-1][0])
-        s = s.filter('terms', EmploymentBands=a)
+        s = s.filter('terms', EmploymentBands=populate_filter(employment_toggle))
 
-    # s = s.filter('terms', EmploymentBands=['M'])
+    turnover_toggle = filters.get('turnover-toggle', None)
+    if turnover_toggle:
+        s = s.filter('terms', Turnover=populate_filter(turnover_toggle))
 
-    s = s[start:page_no * Config.ITEMS_PER_PAGE]
+    trading_toggle = filters.get('trading-toggle', None)
+    if trading_toggle:
+        s = s.filter('terms', TradingStatus=populate_filter(trading_toggle))
+
+    legal_toggle = filters.get('legal-toggle', None)
+    if legal_toggle:
+        legal_map = {'Company': '1', 'Sole Proprietor': 2, 'Partnership': 3,'Public Corporation': 4,
+                     'Central Government': 5, 'Local Authority': 6,
+                     'Non-Profit Organisation': 7, 'Charity': 8}
+        for n, i in enumerate(legal_toggle):
+            legal_toggle[n] = str(legal_map.get(i))
+
+        s = s.filter('terms', LegalStatus=populate_filter(legal_toggle))
 
     print(s.to_dict())
 
@@ -68,51 +74,20 @@ def search_field(search_string, filters, field, page_no):
     return res['hits']
 
 
+def populate_filter(toggle):
+    # We take the first character of the description (the value of the item in the filter).
+    # This works for everything except legal status
+    # where we have to do a substitution as seen above
+    a = []
+    for v in toggle[:-1]:
+        a.append(v[0])
+    a.append(toggle[-1][0])
+    return a
+
+
 def check_reserved_characters(string):
     # check for and escape
     reserved = ['"', '\', ' + ', "'""]
     for tag in reserved:
         string = string.replace(tag, '\\' + tag)
     return string
-
-
-def add_filters(filters):
-    filter_methods = {
-        'employment-toggle': _employment_filter,
-        'turnover-toggle': _turnover_filter,
-        'trading-toggle': _trading_filter,
-        'legal-toggle': _legal_filter
-    }
-
-    filter_string = ''
-
-    for k in filters:
-        filter_string += filter_methods[k](filters[k])
-
-    return filter_string
-
-
-def _employment_filter(items):
-    r = 'AND EmploymentBands:('
-    for v in items[:-1]:
-        r += v[0] + " AND "
-    r += items[-1][0] + ")"
-    return r
-
-
-def _turnover_filter(items):
-    for v in items:
-        print(' value: ' + v[0])
-    return ''
-
-
-def _trading_filter(items):
-    for v in items:
-        print(' value: ' + v)
-    return ''
-
-
-def _legal_filter(items):
-    for v in items:
-        print(' value: ' + v)
-    return ''

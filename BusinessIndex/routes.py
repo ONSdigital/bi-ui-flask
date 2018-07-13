@@ -54,6 +54,9 @@ def show_all_results(page):
     form = forms.AllSearchForm()
     search_string = form.search.data
 
+    # keep copies in the session as next pages don't have the search string and filters available
+    # in the form
+
     if search_string is None:
         search_string = session['search_string']
         filters = session['filters']

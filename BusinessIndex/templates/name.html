@@ -16,8 +16,9 @@
 
                     <div style="width:40%;">
                         {{ form.search(size=100,
-                        class='input input--text',
-                        style='display:inline;', autofocus="true") }}
+                            class='input input--text',
+                            style='display:inline;', autofocus="true")
+                        }}
 
                     </div>
 
@@ -36,9 +37,7 @@
 
         $(document).ready(function () {
             $('#search-name-form').submit(function (e) {
-
                 $('#search_name_filters').val(JSON.stringify(get_filters()));
-
                 return true;
             });
         });
