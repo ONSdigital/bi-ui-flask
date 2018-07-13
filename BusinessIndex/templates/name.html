@@ -4,34 +4,42 @@
 
     <section>
 
-        <div class="main-content">
+        <script> type = "text/javascript" >
+            $('#filter').show();
+        </script>
 
-            <div class="wrapper narrow">
+        <div class="main-content" style="padding-top: 0;padding-bottom:0;height:100%">
 
-                <form action="/search_name/" method="post" novalidate id="search-name-form">
+            <div class="panel panel--info" style="min-height:300px;">
 
-                    {{ form.hidden_tag() }}
+                <div class="panel__header">
+                    <div class="venus">Search by business name</div>
+                </div>
+                <div class="panel__body">
 
-                    {{ heading.four('Search by Business Name:') }}
+                    <form action="/search_name/" method="post" novalidate id="search-name-form">
 
-                    <div style="width:40%;">
-                        {{ form.search(size=100,
+                        {{ form.hidden_tag() }}
+
+                        {{ heading.four('Enter Search Term:') }}
+
+                        <div style="width:40%;">
+                            {{ form.search(size=100,
                             class='input input--text',
-                            style='display:inline;', autofocus="true")
-                        }}
+                            style='display:inline;', autofocus="true") }}
 
-                    </div>
+                        </div>
 
-                    {% for error in form.search.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
+                        {% for error in form.search.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
 
     </section>
-
 
     <script>
 

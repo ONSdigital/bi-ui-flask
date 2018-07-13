@@ -3,6 +3,9 @@
 {% block content %}
 
     <section>
+        <script> type="text/javascript">
+            $('#filter').show();
+        </script>
 
         <div class="main-content" style="padding-top: 0;padding-bottom:0;height:100%" id="search-panel">
 
@@ -17,7 +20,7 @@
 
                         {{ form.hidden_tag() }}
 
-                        {{ heading.four('Search All Fields:') }}
+                        {{ heading.four('Enter Search Term:') }}
 
                         <div style="width:40%;">
                             {{ form.search(size=100, class='input input--text',

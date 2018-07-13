@@ -109,10 +109,13 @@ def show_postcode_results(page):
 
     if search_string is None:
         search_string = session['search_string']
+        filters = session['filters']
     else:
         session['search_string'] = search_string
+        filters = json.loads(form.search_postcode_filters.data)
+        session['filters'] = filters
 
-    results = search.search_postcode(search_string, page)
+    results = search.search_postcode(search_string, filters, page)
 
     count = results['total']
 

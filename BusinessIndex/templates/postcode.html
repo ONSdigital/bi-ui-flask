@@ -4,28 +4,54 @@
 
     <section>
 
-        <div class="main-content">
+        <script> type = "text/javascript" >
+            $('#filter').show();
+        </script>
 
-            <div class="wrapper narrow">
+        <div class="main-content" style="padding-top: 0;padding-bottom:0;height:100%">
 
-                <form action="/search_postcode/" method="post" novalidate>
-                    {{ form.hidden_tag() }}
+            <div class="panel panel--info" style="min-height:300px;">
 
-                    {{ heading.four('Search by Post Code:') }}
-                    <div style="width:40%;">
-                        {{ form.search(size=100,
-                        class='input input--text',
-                        style='display:inline;', autofocus="true") }}
+                <div class="panel__header">
+                    <div class="venus">Search by post code</div>
+                </div>
+                <div class="panel__body">
 
-                    </div>
-                    {% for error in form.search.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
+                    <form action="/search_postcode/" method="post" novalidate id="search-postcode-form">
 
-                </form>
+                        {{ form.hidden_tag() }}
+
+                        {{ heading.four('Enter Search Term:') }}
+
+                        <div style="width:40%;">
+                            {{ form.search(size=100,
+                            class='input input--text',
+                            style='display:inline;', autofocus="true") }}
+
+                        </div>
+
+                        {% for error in form.search.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+
+                    </form>
+                </div>
             </div>
         </div>
 
     </section>
 
+    <script>
+
+        $(document).ready(function () {
+            $('#search-postcode-form').submit(function (e) {
+                $('#search_postcode_filters').val(JSON.stringify(get_filters()));
+                return true;
+            });
+        });
+
+    </script>
+
+
 {% endblock %}
+
