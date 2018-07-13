@@ -17,7 +17,7 @@
                 </div>
                 <div class="panel__body">
 
-                    <form action="/search_industry/" method="post" enctype="multipart/form-data"
+                    <form action="/search_industry/" method="POST" enctype="multipart/form-data"
                           novalidate id="search-industry-form">
 
                         {{ form.hidden_tag() }}
@@ -40,9 +40,8 @@
 
                         <div style="width:40%;">
                             {{ form.search(size=100,
-                                    class='input input--text',
-                                    style='display:inline;', autofocus="true") }}
-
+                                        class='input input--text',
+                                        style='display:inline;', autofocus="true") }}
                         </div>
                         </div>
 
@@ -52,21 +51,22 @@
                             <div id="sic-from-to" style="display: none;">
                         {% endif %}
 
-                            <div style="width:40%;padding-top: 0">
-                                {{ form.searchfrom.label }}
-                                {{ form.searchfrom(
-                                    class='input input--text',
-                                    style='display:inline;') }}
-                            </div>
-                            <div style="width:20px;">
-                                {{ form.searchto.label }}
-                                {{ form.searchto(size=20,
-                                    class='input input--text',
-                                    style='display:inline;') }}
-                            </div>
+                        <div style="width:40%;padding-top: 0">
+                            {{ form.searchfrom.label }}
+                            {{ form.searchfrom(
+                                        class='input input--text',
+                                        style='display:inline;') }}
                         </div>
 
-                        {{ form.submit(style="display:none;") }}
+                        <div style="width:20px;">
+                            {{ form.searchto.label }}
+                            {{ form.searchto(size=20,
+                                        class='input input--text',
+                                        style='display:inline;') }}
+                        </div>
+                        </div>
+
+                        <input id="submit-sic" type="submit" style="display:none;">
 
                         {% for error in form.search.errors %}
                             <span id='search-error' style="color: red;">[{{ error }}]</span>
@@ -86,6 +86,27 @@
     </section>
 
     <script>
+
+        $(function () {
+            let search = document.getElementById('search');
+            let from_s = document.getElementById('searchfrom');
+            let to = document.getElementById('searchto');
+            search.addEventListener('keypress', function (event) {
+                if (event.keyCode === 13) {
+                    document.getElementById('submit-sic').click();
+                }
+            });
+            from_s.addEventListener('keypress', function (event) {
+                if (event.keyCode === 13) {
+                     document.getElementById('submit-sic').click();
+                }
+            });
+            to.addEventListener('keypress', function (event) {
+                if (event.keyCode === 13) {
+                     document.getElementById('submit-sic').click();
+                }
+            });
+        });
 
         $(function () {
             $('#search-industry-form').submit(function (e) {

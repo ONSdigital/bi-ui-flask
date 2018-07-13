@@ -38,10 +38,10 @@ html {
     content: '\25ba';
     color: #033E58;
     font-weight: bold;
+    white-space: nowrap;
     float: left;
     padding: 0 10px 0 0;
     position: center;
-    white-space: pre;
     top:0;
     border: none;
 }
