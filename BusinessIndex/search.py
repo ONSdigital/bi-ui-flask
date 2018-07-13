@@ -7,48 +7,36 @@ es = Elasticsearch(Config.ELASTICSEARCH_URL)
 
 
 def search_industry(search_string, search_from, search_to, filters, page_no):
-    kwargs = {'search_string': search_string, 'filters': filters,
-              'field': 'IndustryCode', 'page_no': page_no,
-              'search_from': search_from, 'search_to': search_to}
-    return search_field(**kwargs)
+    kwargs = {'search_from': search_from, 'search_to': search_to}
+    return search_field(search_string, filters, page_no, 'IndustryCode', **kwargs)
 
 
 def search_postcode(search_string, filters, page_no):
-    kwargs = {'search_string': search_string, 'filters': filters,
-              'field': 'PostCode', 'page_no': page_no}
-    return search_field(**kwargs)
+    return search_field(search_string, filters, page_no, 'PostCode')
 
 
 def search_name(search_string, filters, page_no):
-    kwargs = {'search_string': search_string, 'filters': filters,
-              'field': 'BusinessName', 'page_no': page_no}
-    return search_field(**kwargs)
+    return search_field(search_string, filters, page_no, 'BusinessName')
 
 
 def search_all(search_string, filters, page_no):
-    kwargs = {'search_string': search_string, 'filters': filters,
-              'field': 'ALL', 'page_no': page_no}
-    return search_field(**kwargs)
+    return search_field(search_string, filters, page_no, 'ALL')
 
 
-def search_field(**kwargs):
-    page_no = kwargs.get('page_no')
-    search_string = kwargs.get('search_string')
-    field = kwargs.get('field')
-    filters = kwargs.get('filters')
-    search_from = kwargs.get('search_from')
-    search_to = kwargs.get('search_to')
+def search_field(search_string, filters, page_no, field, **kwargs):
+    if kwargs is not None:
+        search_from = kwargs.get('search_from')
+        search_to = kwargs.get('search_to')
 
-    if search_from or search_to:
-        search_string = "*"
+        if search_from or search_to:
+            search_string = "*"
 
     start = page_no * Config.ITEMS_PER_PAGE - Config.ITEMS_PER_PAGE
 
     orig_search_string = search_string
-    try:
+
+    if field != 'IndustryCode':  # Because SIC uses integers
         search_string = check_reserved_characters(search_string)
-    except AttributeError:
-        pass  # if it's a numeric value
 
     if field == 'ALL':
         s = Search(using=es, index=Config.INDEX) \
