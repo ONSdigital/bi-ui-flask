@@ -144,9 +144,10 @@ def show_industry_results(page):
     search_from = form.searchfrom.data
     search_to = form.searchto.data
 
-    if not form.validate_on_submit():
-        #  pass the checkbox so we can show the correct from/to pane
-        return render_template('industrycode.html', form=form, tabs=tabs, visible=checkbox)
+    if page == 1:
+        if not form.validate_on_submit():
+            #  pass the checkbox so we can show the correct from/to pane
+            return render_template('industrycode.html', form=form, tabs=tabs, visible=checkbox)
 
     if page == 1:
         session['search_string'] = search_string
