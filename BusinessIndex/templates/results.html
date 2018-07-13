@@ -39,11 +39,9 @@
             {{ paging.render(pagination) }}
         {% endif %}
 
-
         {% if companies['total'] != 0 %}
 
             <div class="collator-item">
-
 
                 <table class="table table__dense">
                     <thead class="table--head">
@@ -58,7 +56,7 @@
                         <th scope="col" class="table--header--cell">PAYE Reference</th>
                         <th scope="col" class="table--header--cell">Trading Status</th>
                         <th scope="col" class="table--header--cell">Turnover</th>
-                        <th scope="col" class="table--header--cell">UPRN</th>
+                        <th scope="col" class="table--header--cell">UBRN</th>
                         <th scope="col" class="table--header--cell">VAT Reference</th>
 
                     </tr>
@@ -75,7 +73,7 @@
                             <td class="table--cell">{{ item['_source']['PayeRefs'] }}</td>
                             <td class="table--cell">{{ item['_source']['TradingStatus'] }}</td>
                             <td class="table--cell">{{ item['_source']['Turnover'] }}</td>
-                            <td class="table--cell">{{ item['_source']['UPRN'] }}</td>
+                            <td class="table--cell">{{ item['_source']['UBRN'] }}</td>
                             <td class="table--cell">{{ item['_source']['VatRefs'] }}</td>
                         </tr>
                     {% endfor %}

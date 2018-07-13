@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section>
+
+        <script>
+            $('#filter').show();
+        </script>
+
+        <div class="main-content" style="padding-top: 0;padding-bottom:0;height:100%">
+
+            <div class="panel panel--info" style="min-height:300px;">
+
+                <div class="panel__header">
+                    <div class="venus">Search by industry code</div>
+                </div>
+                <div class="panel__body">
+
+                    <form action="/search_industry/" method="post" enctype="multipart/form-data"
+                          novalidate id="search-industry-form">
+
+                        {{ form.hidden_tag() }}
+
+                        <label class="label label--inline venus" for="checkbox"
+                               style="padding-left: 0; padding-top: 0">
+                            <span style="padding-right: 10px;">
+                                {{ form.checkbox.label }}
+                            </span>
+                            {{ form.checkbox() }}
+                        </label>
+
+                        {% if visible %}
+                            <div id="sic-single-field" style="display:none;">
+                        {% else %}
+                            <div id="sic-single-field" style="display:block;">
+                        {% endif %}
+
+                        {{ heading.four(form.search.label) }}
+
+                        <div style="width:40%;">
+                            {{ form.search(size=100,
+                                    class='input input--text',
+                                    style='display:inline;', autofocus="true") }}
+
+                        </div>
+                        </div>
+
+                        {% if visible %}
+                            <div id="sic-from-to" style="display: block;">
+                        {% else %}
+                            <div id="sic-from-to" style="display: none;">
+                        {% endif %}
+
+                            <div style="width:40%;padding-top: 0">
+                                {{ form.searchfrom.label }}
+                                {{ form.searchfrom(
+                                    class='input input--text',
+                                    style='display:inline;') }}
+                            </div>
+                            <div style="width:20px;">
+                                {{ form.searchto.label }}
+                                {{ form.searchto(size=20,
+                                    class='input input--text',
+                                    style='display:inline;') }}
+                            </div>
+                        </div>
+
+                        {{ form.submit(style="display:none;") }}
+
+                        {% for error in form.search.errors %}
+                            <span id='search-error' style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                        {% for error in form.searchfrom.errors %}
+                            <span id='search-from-error' style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                        {% for error in form.searchto.errors %}
+                            <span id='search-to-error' style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+
+        $(function () {
+            $('#search-industry-form').submit(function (e) {
+                $('#search_industry_filters').val(JSON.stringify(get_filters()));
+                return true;
+            });
+        });
+
+        $(function () {
+            document.getElementById('checkbox').addEventListener("click", function () {
+                let single = document.getElementById('sic-single-field');
+                let range = document.getElementById('sic-from-to');
+                $('#search-error').remove();
+                $('#search-from-error').remove();
+                $('#search-to-error').remove();
+
+                if (single.style.display === "block") {
+                    single.style.display = "none";
+                    range.style.display = "block";
+                    document.getElementById('searchfrom').focus();
+                } else {
+                    single.style.display.value = '';
+                    single.style.display = "block";
+                    range.style.display = "none";
+                }
+
+                return true;
+            })
+        });
+
+    </script>
+
+
+{% endblock %}

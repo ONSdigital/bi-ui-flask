@@ -6,23 +6,49 @@ from appconfig import Config
 es = Elasticsearch(Config.ELASTICSEARCH_URL)
 
 
+def search_industry(search_string, search_from, search_to, filters, page_no):
+    kwargs = {'search_string': search_string, 'filters': filters,
+              'field': 'IndustryCode', 'page_no': page_no,
+              'search_from': search_from, 'search_to': search_to}
+    return search_field(**kwargs)
+
+
 def search_postcode(search_string, filters, page_no):
-    return search_field(search_string, filters, 'PostCode', page_no)
+    kwargs = {'search_string': search_string, 'filters': filters,
+              'field': 'PostCode', 'page_no': page_no}
+    return search_field(**kwargs)
 
 
 def search_name(search_string, filters, page_no):
-    return search_field(search_string, filters, 'BusinessName', page_no)
+    kwargs = {'search_string': search_string, 'filters': filters,
+              'field': 'BusinessName', 'page_no': page_no}
+    return search_field(**kwargs)
 
 
 def search_all(search_string, filters, page_no):
-    return search_field(search_string, filters, 'ALL', page_no)
+    kwargs = {'search_string': search_string, 'filters': filters,
+              'field': 'ALL', 'page_no': page_no}
+    return search_field(**kwargs)
 
 
-def search_field(search_string, filters, field, page_no):
+def search_field(**kwargs):
+    page_no = kwargs.get('page_no')
+    search_string = kwargs.get('search_string')
+    field = kwargs.get('field')
+    filters = kwargs.get('filters')
+    search_from = kwargs.get('search_from')
+    search_to = kwargs.get('search_to')
+
+    if search_from or search_to:
+        search_string = "*"
+
     start = page_no * Config.ITEMS_PER_PAGE - Config.ITEMS_PER_PAGE
 
     orig_search_string = search_string
-    search_string = check_reserved_characters(search_string)
+    try:
+        search_string = check_reserved_characters(search_string)
+    except AttributeError:
+        pass  # if it's a numeric value
 
     if field == 'ALL':
         s = Search(using=es, index=Config.INDEX) \
@@ -45,9 +71,16 @@ def search_field(search_string, filters, field, page_no):
     if trading_toggle:
         s = s.filter('terms', TradingStatus=populate_filter(trading_toggle))
 
+    search_from = kwargs.get('search_from')
+    search_to = kwargs.get('search_to')
+
+    if search_from or search_to:
+        s = s.filter('range', IndustryCode={'gte': int(search_from) - 1, 'lt': int(search_to) + 1})
+        s = s.sort('IndustryCode')
+
     legal_toggle = filters.get('legal-toggle', None)
     if legal_toggle:
-        legal_map = {'Company': '1', 'Sole Proprietor': 2, 'Partnership': 3,'Public Corporation': 4,
+        legal_map = {'Company': '1', 'Sole Proprietor': 2, 'Partnership': 3, 'Public Corporation': 4,
                      'Central Government': 5, 'Local Authority': 6,
                      'Non-Profit Organisation': 7, 'Charity': 8}
         for n, i in enumerate(legal_toggle):
