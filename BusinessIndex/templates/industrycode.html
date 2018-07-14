@@ -92,17 +92,20 @@
             let from_s = document.getElementById('searchfrom');
             let to = document.getElementById('searchto');
             search.addEventListener('keypress', function (event) {
-                if (event.keyCode === 13) {
+                let key = event.key || event.keyCode;
+                if (key === 13) {
                     document.getElementById('submit-sic').click();
                 }
             });
             from_s.addEventListener('keypress', function (event) {
-                if (event.keyCode === 13) {
+                let key = event.key || event.keyCode;
+                if (key === 13) {
                      document.getElementById('submit-sic').click();
                 }
             });
             to.addEventListener('keypress', function (event) {
-                if (event.keyCode === 13) {
+                let key = event.key || event.keyCode;
+                if (key === 13) {
                      document.getElementById('submit-sic').click();
                 }
             });
