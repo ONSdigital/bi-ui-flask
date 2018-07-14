@@ -13,7 +13,7 @@
             <div class="panel panel--info" style="min-height:300px;">
 
                 <div class="panel__header">
-                    <div class="venus">Search by industry code</div>
+                    <div class="venus">Search by Industry Code</div>
                 </div>
                 <div class="panel__body">
 
@@ -91,23 +91,22 @@
             let search = document.getElementById('search');
             let from_s = document.getElementById('searchfrom');
             let to = document.getElementById('searchto');
-            search.addEventListener('keypress', function (event) {
+
+            function submit_form(event) {
                 let key = event.key || event.keyCode;
                 if (key === 13) {
                     document.getElementById('submit-sic').click();
                 }
+            }
+
+            search.addEventListener('keypress', function (event) {
+                submit_form(event);
             });
             from_s.addEventListener('keypress', function (event) {
-                let key = event.key || event.keyCode;
-                if (key === 13) {
-                     document.getElementById('submit-sic').click();
-                }
+                submit_form(event);
             });
             to.addEventListener('keypress', function (event) {
-                let key = event.key || event.keyCode;
-                if (key === 13) {
-                     document.getElementById('submit-sic').click();
-                }
+                submit_form(event);
             });
         });
 
