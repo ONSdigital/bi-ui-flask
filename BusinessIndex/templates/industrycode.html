@@ -29,14 +29,6 @@
                             </label>
                         </div>
 
-{#                        <label class="label label--inline venus" for="checkbox"#}
-{#                               style="padding-left: 0; padding-top: 0">#}
-{#                            <span style="padding-right: 10px;">#}
-{#                                {{ form.checkbox.label }}#}
-{#                            </span>#}
-{#                            {{ form.checkbox() }}#}
-{#                        </label>#}
-
                         {% if visible %}
                             <div id="sic-single-field" style="display:none;">
                         {% else %}
@@ -78,9 +70,11 @@
                         {% for error in form.search.errors %}
                             <span id='search-error' style="color: red;">[{{ error }}]</span>
                         {% endfor %}
+
                         {% for error in form.searchfrom.errors %}
                             <span id='search-from-error' style="color: red;">[{{ error }}]</span>
                         {% endfor %}
+
                         {% for error in form.searchto.errors %}
                             <span id='search-to-error' style="color: red;">[{{ error }}]</span>
                         {% endfor %}
@@ -140,6 +134,7 @@
                     single.style.display.value = '';
                     single.style.display = "block";
                     range.style.display = "none";
+                    document.getElementById('search').focus();
                 }
 
                 return true;
