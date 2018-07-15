@@ -22,7 +22,7 @@
 
                         {{ form.hidden_tag() }}
 
-                        <div class="field__item js-focusable-box" style="margin-left: 0;padding-right: 0; ">
+                        <div id="cb" class="field__item js-focusable-box" style="margin-left: 0;padding-right: 0; ">
                             {{ form.checkbox(class="input input--checkbox js-focusable") }}
                             <label class="label label--inline venus" for="checkbox" style="margin-left: 0">
                                 {{ form.checkbox.label }}
@@ -136,7 +136,6 @@
                     range.style.display = "none";
                     document.getElementById('search').focus();
                 }
-
                 return true;
             })
         });

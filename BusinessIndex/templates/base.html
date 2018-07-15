@@ -21,16 +21,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/registers-main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
 
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-
     <!--[if gt IE 8]><!-->
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'has-js')</script>
     <!--<![endif]-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src='https://cdn.ons.gov.uk/sdc/0bceacd/scripts/bundle.min.js'></script>
-
 </head>
 
 <body>
@@ -42,7 +38,6 @@
     {% import 'macros/messages.html' as message %}
     {% import 'macros/input.html'    as input %}
     {% import 'macros/paging.html' as paging %}
-
 
     {% include 'header.html' %}
 
