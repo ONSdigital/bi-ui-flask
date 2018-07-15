@@ -22,13 +22,20 @@
 
                         {{ form.hidden_tag() }}
 
-                        <label class="label label--inline venus" for="checkbox"
-                               style="padding-left: 0; padding-top: 0">
-                            <span style="padding-right: 10px;">
+                        <div class="field__item js-focusable-box" style="margin-left: 0;padding-right: 0; ">
+                            {{ form.checkbox(class="input input--checkbox js-focusable") }}
+                            <label class="label label--inline venus" for="checkbox" style="margin-left: 0">
                                 {{ form.checkbox.label }}
-                            </span>
-                            {{ form.checkbox() }}
-                        </label>
+                            </label>
+                        </div>
+
+{#                        <label class="label label--inline venus" for="checkbox"#}
+{#                               style="padding-left: 0; padding-top: 0">#}
+{#                            <span style="padding-right: 10px;">#}
+{#                                {{ form.checkbox.label }}#}
+{#                            </span>#}
+{#                            {{ form.checkbox() }}#}
+{#                        </label>#}
 
                         {% if visible %}
                             <div id="sic-single-field" style="display:none;">
