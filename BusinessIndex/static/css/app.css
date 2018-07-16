@@ -21,16 +21,21 @@ html {
     top: 0;
 }
 
+.results {
+    width: 100%;
+    clear: both;
+}
+
 .accordion {
     cursor: pointer;
     width: 100%;
     text-align: left;
     outline: none;
-    display:block;
+    display: block;
     border: none;
-    position:relative;
+    position: relative;
     transition: 0.4s;
-    padding:8px;
+    padding: 8px;
 }
 
 .accordion:after {
@@ -41,7 +46,7 @@ html {
     float: left;
     padding: 0 10px 0 0;
     position: center;
-    top:0;
+    top: 0;
     border: none;
 }
 
@@ -49,7 +54,7 @@ html {
     content: "\25bc";
     color: #033E58;
     font-weight: bold;
-    float:left;
+    float: left;
     border: none;
 }
 
@@ -57,3 +62,29 @@ html {
     transition: height 0.2s ease-out;
 }
 
+.line-title {
+    grid-area: title;
+    font-weight: bold;
+}
+
+.line-item {
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.line-label {
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.results--wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    background-color: #fff;
+    color: #444;
+}

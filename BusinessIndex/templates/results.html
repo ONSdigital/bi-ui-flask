@@ -1,33 +1,45 @@
 {% extends "base.html" %}
 
-{% block content %}
+<script> type = "text/javascript" >
+    $('#filter').hide();
+</script>
 
-    <div class="page__container container">
-        <script> type="text/javascript">
-            $('#filter').hide();
-        </script>
+{% block results %}
+
+    <div class="results page__container container" style="padding-left: 8px; padding-right: 0;">
 
         {{ spacing.tiny() }}
 
         {% if companies['total'] == 0 %}
+
             <div class="panel panel--simple panel--warn">
                 <div class="panel__body">
-                    <h2 class="venus">Results</h2>
-                    <div>No rows found
-                    </div>
+                    <h2 class="venus">No rows found for [{{ companies['search_string'] }}]</h2>
                 </div>
             </div>
 
         {% else %}
 
-            <div class="panel panel--simple panel--success">
+            <div class="panel panel--simple panel--success" style="padding-right: 0;">
                 <div class="panel__body">
-                    <h2 class="venus">{{ companies['items_found'] }} Rows found for [{{ companies['search_string'] }}]</h2>
+                    <div style="display:flex; justify-content: space-between;">
+                        <h2 class="venus">{{ companies['items_found'] }} Rows found for
+                            [{{ companies['search_string'] }}]</h2>
+                        <div class="field__item js-focusable-box" style="float: right;">
+                            <input class="input input--checkbox js-focusable" name="checkbox-answer"
+                                   id="res-cb"
+                                   type="checkbox">
+                            <label class="label label--inline venus " for="res-cb">
+                                List View
+                            </label>
+                        </div>
+                    </div>
                     {% if  companies['items_found'] != companies['total'] %}
                         <div class="badge badge--amber">
                             limited to {{ companies['total'] }} rows
                         </div>
                     {% endif %}
+
                 </div>
             </div>
 
@@ -40,23 +52,50 @@
         {% endif %}
 
         {% if companies['total'] != 0 %}
+            <div class="results" id="results-list" style="display:none;">
 
-            <div class="collator-item">
+                <div class="results--wrapper">
+                    {% for item in companies['hits'] %}
+                        <div class="line-label">Business Name:</div>
+                        <div class="line-item">{{ item['_source']['BusinessName'] }}</div>
+                        <div class="line-label">UBRN:</div>
+                        <div class="line-item">{{ item['_source']['UBRN'] }}</div>
+                        <div class="line-label">Post Code:</div>
+                        <div class="line-item"> {{ item['_source']['PostCode'] }}</div>
+                        <div class="line-label">Company #:</div>
+                        <div class="line-item"> {{ item['_source']['CompanyNo'] }}</div>
+                        <div class="line-label">Employment:</div>
+                        <div class="line-item"> {{ item['_source']['EmploymentBands'] }}</div>
+                        <div class="line-label">Industry Code:</div>
+                        <div class="line-item"> {{ item['_source']['IndustryCode'] }}</div>
+                        <div class="line-label">Legal Status:</div>
+                        <div class="line-item"> {{ item['_source']['LegalStatus'] }}</div>
+                        <div class="line-label">PAYE Reference:</div>
+                        <div class="line-item"> {{ item['_source']['PayeRefs'] }}</div>
+                        <div class="line-label">Trading Status:</div>
+                        <div class="line-item"> {{ item['_source']['TradingStatus'] }}</div>
+                        <div class="line-label">Turnover:</div>
+                        <div class="line-item">{{ item['_source']['Turnover'] }}</div>
+                        <div class="line-label">VAT Reference:</div>
+                        <div class="line-item"> {{ item['_source']['VatRefs'] }}</div>
+                    {% endfor %}
+                </div>
+            </div>
 
+            <div class="collator-item" id="results-table" style="display: block;">
                 <table class="table table__dense">
                     <thead class="table--head">
                     <tr>
+                        <th scope="col" class="table--header--cell">UBRN</th>
                         <th scope="col" class="table--header--cell">Business Name</th>
                         <th scope="col" class="table--header--cell">Post Code</th>
                         <th scope="col" class="table--header--cell">Company #</th>
-
-                        <th scope="col" class="table--header--cell">Employment Bands</th>
+                        <th scope="col" class="table--header--cell">Employment</th>
                         <th scope="col" class="table--header--cell">Industry Code</th>
                         <th scope="col" class="table--header--cell">Legal Status</th>
                         <th scope="col" class="table--header--cell">PAYE Reference</th>
                         <th scope="col" class="table--header--cell">Trading Status</th>
                         <th scope="col" class="table--header--cell">Turnover</th>
-                        <th scope="col" class="table--header--cell">UBRN</th>
                         <th scope="col" class="table--header--cell">VAT Reference</th>
 
                     </tr>
@@ -64,6 +103,7 @@
                     <tbody>
                     {% for item in companies['hits'] %}
                         <tr class="table--row">
+                            <td class="table--cell">{{ item['_source']['UBRN'] }}</td>
                             <td class="table--cell">{{ item['_source']['BusinessName'] }}</td>
                             <td class="table--cell">{{ item['_source']['PostCode'] }}</td>
                             <td class="table--cell">{{ item['_source']['CompanyNo'] }}</td>
@@ -73,7 +113,6 @@
                             <td class="table--cell">{{ item['_source']['PayeRefs'] }}</td>
                             <td class="table--cell">{{ item['_source']['TradingStatus'] }}</td>
                             <td class="table--cell">{{ item['_source']['Turnover'] }}</td>
-                            <td class="table--cell">{{ item['_source']['UBRN'] }}</td>
                             <td class="table--cell">{{ item['_source']['VatRefs'] }}</td>
                         </tr>
                     {% endfor %}
@@ -81,18 +120,35 @@
                     </tbody>
                 </table>
 
-                {{ spacing.tiny() }}
-                {% if  companies['paging_active'] %}
-
-                    {{ paging.render(pagination) }}
-                    {{ spacing.tiny() }}
-
-                {% endif %}
-
             </div>
+            {{ spacing.tiny() }}
+
+            {% if  companies['paging_active'] %}
+
+                {{ paging.render(pagination) }}
+
+            {% endif %}
 
         {% endif %}
 
+        <script>
+
+            $(function () {
+                document.getElementById('res-cb').addEventListener("click", function () {
+
+                    if (document.getElementById('res-cb').checked) {
+                        document.getElementById('results-table').style.display = "none";
+                        document.getElementById('results-list').style.display = "block";
+                    } else {
+                        document.getElementById('results-table').style.display = "block";
+                        document.getElementById('results-list').style.display = "none";
+                    }
+                    return true;
+                })
+            });
+
+
+        </script>
     </div>
 
 {% endblock %}

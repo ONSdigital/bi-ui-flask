@@ -92,13 +92,39 @@ def search_field(search_string, filters, page_no, field, **kwargs):
 
     res['hits']['search_string'] = orig_search_string
 
+    substutite_values(res['hits'])
+
     return res['hits']
 
 
+def substutite_values(items):
+    bands = {
+        'A': '0', 'B': '1', 'C': '2-4', 'D': '5-9',
+        'E': '10-19', 'F': '20-24', 'G': '25-49',
+        'H': '50-74', 'I': '75-99', 'J': '100-149',
+        'K': '150-199', 'L': '200-249', 'M': '250-299',
+        'N': '300-499', 'O': '500+'
+     }
+
+    turnover = {
+        'A': '0-99', 'B': '100-249', 'C': '250-499',
+        'D': '500-999', 'E': '1,000-1,999', 'F': '2,000-4,999',
+        'G': '5,000-9,999', 'H': '10,000-49,999', 'I': '50,000+'
+    }
+
+    trading = {'A': 'Active', 'C': 'Closed', 'D': 'Dormant','I': 'Insolvent' }
+
+    for item in items['hits']:
+        item['_source']['EmploymentBands'] = bands[item['_source']['EmploymentBands']]
+        item['_source']['TradingStatus'] = trading[item['_source']['TradingStatus']]
+        item['_source']['Turnover'] = turnover[item['_source']['Turnover']]
+
+
 def populate_filter(toggle):
-    # We take the first character of the description (the value of the item in the filter).
+    # Take the first character of the description (the value of the item in the filter).
     # This works for everything except legal status
     # where we have to do a substitution as seen above
+
     a = []
     for v in toggle[:-1]:
         a.append(v[0])

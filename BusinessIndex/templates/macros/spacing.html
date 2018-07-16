@@ -5,27 +5,43 @@
 
 {% endmacro %}
 
-{% macro small() %}
+{% macro small(style) %}
 
-    <div class="u-mb-s">&nbsp;</div>
-
-{% endmacro %}
-
-{% macro medium() %}
-
-    <div class="u-mb-m">&nbsp;</div>
+    {% if style %}
+        <div class="u-mb-s" style="{{ style }}">&nbsp;</div>
+    {% else %}
+        <div class="u-mb-s">&nbsp;</div>
+    {% endif %}
 
 {% endmacro %}
 
-{% macro large() %}
+{% macro medium(style) %}
 
-    <div class="u-mb-l">&nbsp;</div>
+    {% if style %}
+        <div class="u-mb-m" style="{{ style }}">&nbsp;</div>
+    {% else %}
+        <div class="u-mb-m">&nbsp;</div>
+    {% endif %}
 
 {% endmacro %}
 
-{% macro extraLarge() %}
+{% macro large(style) %}
 
-    <div class="u-mb-xl">&nbsp;</div>
+    {% if style %}
+        <div class="u-mb-l" style="{{ style }}">&nbsp;</div>
+    {% else %}
+        <div class="u-mb-l">&nbsp;</div>
+    {% endif %}
+
+{% endmacro %}
+
+{% macro extraLarge(style) %}
+
+    {% if style %}
+        <div class="u-mb-xl" style="{{ style }}">&nbsp;</div>
+    {% else %}
+        <div class="u-mb-xl">&nbsp;</div>
+    {% endif %}
 
 {% endmacro %}
 

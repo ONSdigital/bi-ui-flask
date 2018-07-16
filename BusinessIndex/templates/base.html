@@ -31,28 +31,33 @@
 
 <body>
 
-    {% import 'macros/links.html'    as links %}
-    {% import 'macros/buttons.html'  as buttons %}
-    {% import 'macros/heading.html'  as heading %}
-    {% import 'macros/spacing.html'  as spacing %}
-    {% import 'macros/messages.html' as message %}
-    {% import 'macros/input.html'    as input %}
-    {% import 'macros/paging.html' as paging %}
+{% import 'macros/links.html'    as links %}
+{% import 'macros/buttons.html'  as buttons %}
+{% import 'macros/heading.html'  as heading %}
+{% import 'macros/spacing.html'  as spacing %}
+{% import 'macros/messages.html' as message %}
+{% import 'macros/input.html'    as input %}
+{% import 'macros/paging.html' as paging %}
 
-    {% include 'header.html' %}
+{% include 'header.html' %}
 
-    <div class="wrapper narrow" id="expand" style="padding: 0;height: 300px;" >
+<div class="wrapper narrow" id="expand" style="padding: 0;">
 
-        <div class="filter" id="filter" style="display: none">
-            {% include 'filter.html' %}
-        </div>
-
-        <div class="search main">
-            {% block content %}{% endblock %}
-        </div>
+    <div class="filter" id="filter" style="display: none;">
+        {% include 'filter.html' %}
     </div>
 
-    {{ spacing.extraLarge() }}
+    <div class="search main">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="results" id="results" >
+        {% block results %}{% endblock %}
+    </div>
+
+    {{ spacing.extraLarge(style="margin: 0;") }}
+
+</div>
 
     {% include 'footer.html' %}
 
