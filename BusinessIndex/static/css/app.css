@@ -63,28 +63,37 @@ html {
 }
 
 .line-title {
-    grid-area: title;
     font-weight: bold;
-}
-
-.line-item {
-    background-color: #444;
-    color: #fff;
-    border-radius: 5px;
-    padding: 20px;
+    grid-column: 1 / 4;
+    line-height: 1em;
+    padding-bottom: 10px;
 }
 
 .line-label {
-    background-color: #444;
-    color: #fff;
-    border-radius: 5px;
-    padding: 20px;
+    line-height: 1.1em;
+    grid-column: 1/2;
+    color: gray;
+}
+
+.line-item {
+    grid-column: 2/4;
+    line-height: 1.1em;
+}
+
+.line-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
 }
 
 .results--wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
-    background-color: #fff;
-    color: #444;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0;
+    border-radius: 3px;
+    background-color: #eff0f9;
+    padding: 10px;
+    -moz-box-shadow: 10px 10px 5px #a19ca1;
+    -webkit-box-shadow: 10px 10px 5px #a19ca1;
+    box-shadow: 10px 10px 5px #a19ca1;
 }
