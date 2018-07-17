@@ -90,10 +90,8 @@ html {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 0;
-    border-radius: 3px;
+    border-radius: 10px;
     background-color: #eff0f9;
     padding: 10px;
-    -moz-box-shadow: 10px 10px 5px #a19ca1;
-    -webkit-box-shadow: 10px 10px 5px #a19ca1;
-    box-shadow: 10px 10px 5px #a19ca1;
+    border: 1px solid #033E58;
 }

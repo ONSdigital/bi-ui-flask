@@ -19,6 +19,8 @@ tabs = [
     {'name': 'PAYE', 'href': '/paye', 'active': False}
 ]
 
+view_type = 'table'
+
 
 def set_active(tab):
     for t in tabs:
@@ -57,6 +59,16 @@ def industrycode():
     return render_template('industrycode.html', form=form, tabs=tabs)
 
 
+# set the view type
+@app.route('/setview', methods=['POST'])
+def set_view():
+    jsdata = json.loads(request.form['javascript_data'])
+    global view_type
+    view_type = jsdata.get('view_type')
+    print("view type set to:" + view_type)
+    return view_type
+
+
 @app.route('/search_all/', defaults={'page': 1}, methods=['GET', 'POST'])
 @app.route('/search_all/page/<int:page>', methods=['GET', 'POST'])
 def show_all_results(page):
@@ -82,7 +94,7 @@ def show_all_results(page):
         abort(404)
 
     pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
-    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs, view=view_type)
 
 
 @app.route('/search_name/', defaults={'page': 1}, methods=['GET', 'POST'])
@@ -107,7 +119,8 @@ def show_name_results(page):
         abort(404)
 
     pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
-    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs)
+    global view_type
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs, view=view_type)
 
 
 @app.route('/search_postcode/', defaults={'page': 1}, methods=['GET', 'POST'])
@@ -132,7 +145,7 @@ def show_postcode_results(page):
         abort(404)
 
     pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
-    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs, view=view_type)
 
 
 @app.route('/search_industry/', defaults={'page': 1}, methods=['GET', 'POST'])
@@ -171,7 +184,7 @@ def show_industry_results(page):
         abort(404)
 
     pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
-    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs, view=view_type)
 
 
 def url_for_other_page(page):

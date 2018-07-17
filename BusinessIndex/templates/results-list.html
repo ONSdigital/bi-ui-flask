@@ -1,0 +1,50 @@
+{% if view  == 'list' %}
+
+<div class="results" id="results-list" style="display:block;">
+
+{% else %}
+
+<div class="results" id="results-list" style="display:none;">
+
+{% endif %}
+
+    <div class="line-results">
+        {% for item in companies['hits'] %}
+
+        <div class="results--wrapper">
+            <div class="line-title">{{ item['_source']['BusinessName'] }}</div>
+
+            <div class="line-label">UBRN:</div>
+            <div class="line-item">{{ item['_source']['UBRN'] }}</div>
+
+            <div class="line-label">Post Code:</div>
+            <div class="line-item"> {{ item['_source']['PostCode'] }}</div>
+
+            <div class="line-label">Company #:</div>
+            <div class="line-item"> {{ item['_source']['CompanyNo'] }}</div>
+
+            <div class="line-label">Employment:</div>
+            <div class="line-item"> {{ item['_source']['EmploymentBands'] }}</div>
+
+            <div class="line-label">Industry Code:</div>
+            <div class="line-item"> {{ item['_source']['IndustryCode'] }}</div>
+
+            <div class="line-label">Legal Status:</div>
+            <div class="line-item"> {{ item['_source']['LegalStatus'] }}</div>
+
+            <div class="line-label">PAYE Reference:</div>
+            <div class="line-item"> {{ item['_source']['PayeRefs'] }}</div>
+
+            <div class="line-label">Trading Status:</div>
+            <div class="line-item"> {{ item['_source']['TradingStatus'] }}</div>
+
+            <div class="line-label">Turnover:</div>
+            <div class="line-item">{{ item['_source']['Turnover'] }}</div>
+
+            <div class="line-label">VAT Reference:</div>
+            <div class="line-item"> {{ item['_source']['VatRefs'] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
