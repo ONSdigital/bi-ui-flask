@@ -129,7 +129,7 @@ def substutite_values(items):
         'H': '50-74', 'I': '75-99', 'J': '100-149',
         'K': '150-199', 'L': '200-249', 'M': '250-299',
         'N': '300-499', 'O': '500+'
-     }
+    }
 
     turnover = {
         'A': '0-99', 'B': '100-249', 'C': '250-499',
@@ -137,12 +137,18 @@ def substutite_values(items):
         'G': '5,000-9,999', 'H': '10,000-49,999', 'I': '50,000+'
     }
 
-    trading = {'A': 'Active', 'C': 'Closed', 'D': 'Dormant','I': 'Insolvent' }
+    trading = {'A': 'Active', 'C': 'Closed', 'D': 'Dormant', 'I': 'Insolvent'}
+
+    legal = {1: 'Company', 2: 'Sole Proprietor', 3: 'Partnership', 4: 'Public Corporation',
+             5: 'Central Government', 6: 'Local Authority',
+             7: 'Non-Profit Organisation', 8: 'Charity'
+             }
 
     for item in items['hits']:
         item['_source']['EmploymentBands'] = bands[item['_source']['EmploymentBands']]
         item['_source']['TradingStatus'] = trading[item['_source']['TradingStatus']]
         item['_source']['Turnover'] = turnover[item['_source']['Turnover']]
+        item['_source']['LegalStatus'] = legal[item['_source']['LegalStatus']]
 
 
 def populate_filter(toggle):
