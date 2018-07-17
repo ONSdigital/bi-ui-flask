@@ -65,16 +65,21 @@ def search_field(search_string, filters, page_no, field, **kwargs):
 
     s = s[start:page_no * Config.ITEMS_PER_PAGE]
 
+    filters_active = False
+
     employment_toggle = filters.get('employment-toggle', None)
     if employment_toggle:
+        filters_active = True
         s = s.filter('terms', EmploymentBands=populate_filter(employment_toggle))
 
     turnover_toggle = filters.get('turnover-toggle', None)
     if turnover_toggle:
+        filters_active = True
         s = s.filter('terms', Turnover=populate_filter(turnover_toggle))
 
     trading_toggle = filters.get('trading-toggle', None)
     if trading_toggle:
+        filters_active = True
         s = s.filter('terms', TradingStatus=populate_filter(trading_toggle))
 
     search_from = kwargs.get('search_from')
@@ -93,6 +98,7 @@ def search_field(search_string, filters, page_no, field, **kwargs):
             legal_toggle[n] = str(legal_map.get(i))
 
         s = s.filter('terms', LegalStatus=populate_filter(legal_toggle))
+        filters_active = True
 
     print(s.to_dict())
 
@@ -109,6 +115,7 @@ def search_field(search_string, filters, page_no, field, **kwargs):
         res['hits']['paging_active'] = False
 
     res['hits']['search_string'] = orig_search_string
+    res['hits']['filters_active'] = filters_active
 
     substutite_values(res['hits'])
 

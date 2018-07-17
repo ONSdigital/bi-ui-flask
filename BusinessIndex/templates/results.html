@@ -24,7 +24,7 @@
                 <div class="panel__body">
                     <div style="display:flex; justify-content: space-between;">
                         <h2 class="venus">{{ companies['items_found'] }} Rows found for
-                            [{{ companies['search_string'] }}]</h2>
+                            [Search String: '{{ companies['search_string'] }}, Filtered: {{ companies['filters_active'] }}]</h2>
                         <div class="field__item js-focusable-box" style="float: right;padding-right: 5px;">
                             {% if view == 'list' %}
                                 <input class="input input--checkbox js-focusable" name="checkbox-answer"
