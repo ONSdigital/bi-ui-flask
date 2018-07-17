@@ -82,12 +82,10 @@
             if (type === 'list') {
                 document.getElementById('results-table').style.display = "none";
                 document.getElementById('results-list').style.display = "block";
-                console.log("func setting view type: " + view_type);
 
             } else {
                 document.getElementById('results-table').style.display = "block";
                 document.getElementById('results-list').style.display = "none";
-                console.log("func setting view type: " + view_type);
             }
         }
 
@@ -106,6 +104,7 @@
                     });
                     set_view_type('table');
                 }
+                document.getElementById('res-cb').blur();
                 return true;
             })
         });
