@@ -102,6 +102,10 @@ def show_all_results(page):
     form = forms.AllSearchForm()
     search_string = form.search.data
 
+    if page == 1:
+        if not form.validate_on_submit():
+            return render_template('index.html', form=form, tabs=tabs)
+
     # keep copies in the session as next pages don't have the search string and filters available
     # in the form
 
@@ -130,6 +134,11 @@ def show_name_results(page):
     form = forms.NameSearchForm()
     search_string = form.search.data
 
+    if page == 1:
+        if not form.validate_on_submit():
+            #  pass the checkbox so we can show the correct from/to pane
+            return render_template('name.html', form=form, tabs=tabs)
+
     if search_string is None:
         search_string = session['search_string']
         filters = session['filters']
@@ -154,6 +163,10 @@ def show_name_results(page):
 def show_postcode_results(page):
     form = forms.PostcodeSearchForm()
     search_string = form.search.data
+
+    if page == 1:
+        if not form.validate_on_submit():
+            return render_template('postcode.html', form=form, tabs=tabs)
 
     if search_string is None:
         search_string = session['search_string']
