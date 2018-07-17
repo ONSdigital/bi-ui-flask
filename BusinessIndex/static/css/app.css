@@ -67,6 +67,7 @@ html {
     grid-column: 1 / 4;
     line-height: 1em;
     padding-bottom: 10px;
+    text-align: center;
 }
 
 .line-label {

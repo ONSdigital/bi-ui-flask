@@ -21,10 +21,12 @@
         {% else %}
 
             <div class="panel panel--simple panel--success" style="padding-right: 0;">
-                <div class="panel__body">
+                <div class="panel__body ">
                     <div style="display:flex; justify-content: space-between;">
-                        <h2 class="venus">{{ companies['items_found'] }} Rows found for
-                            [Search String: '{{ companies['search_string'] }}, Filtered: {{ companies['filters_active'] }}]</h2>
+
+                        <h2 class="venus" style="padding-bottom: 0">{{ companies['items_found'] }} Rows found for
+                            Search String: [{{ companies['search_string'] }}]</h2>
+
                         <div class="field__item js-focusable-box" style="float: right;padding-right: 5px;">
                             {% if view == 'list' %}
                                 <input class="input input--checkbox js-focusable" name="checkbox-answer"
@@ -40,6 +42,7 @@
                             </label>
                         </div>
                     </div>
+                <h2 class="venus" style="padding-top: 0"> Filter: [{{ companies['filters_active'] }}]</h2>
                     {% if  companies['items_found'] != companies['total'] %}
                         <div class="badge badge--amber">
                             limited to {{ companies['total'] }} rows

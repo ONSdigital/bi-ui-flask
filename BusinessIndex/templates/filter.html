@@ -98,7 +98,7 @@
 
             <div class="content mars" id="legal-toggle" style="display: none;">
 
-                {% set trading = [
+                {% set legal = [
                     {'legal1': 'Company'}, {'legal2': 'Sole Proprietor'}, {'legal3': 'Partnership'},
                     {'legal4': 'Public Corporation'}, {'legal5': 'Central Government'},
                     {'legal6': 'Local Authority'},
@@ -106,7 +106,7 @@
                 ] %}
 
                 <fieldset>
-                    {% for t in trading %}
+                    {% for t in legal %}
                         {% for key, value in t.items() %}
                             <div class="field__item js-focusable-box" style="margin-left: 0;">
                                 <input class="input input--checkbox js-focusable"
@@ -116,7 +116,7 @@
                                        id="{{ key }}" type="checkbox">
                                 <label class="label label--inline venus " for="{{ key }}"
                                        style="font-size: .8em;margin-top: .8%;padding-right: 0;">
-                                    {{ value }}
+                                       {{ value }}
                                 </label>
                             </div>
                         {% endfor %}
@@ -147,7 +147,9 @@
             } else {
                 filters[accordion].push(item.value);
             }
+
         } else {
+
             let list = filters[accordion];
             for (let i in list) {
                 if (list[i] === item.value) {
@@ -155,6 +157,7 @@
                     break;
                 }
             }
+
         }
 
         /* remove focus otherwise it will only draw the outline when the focus is lost leading to an

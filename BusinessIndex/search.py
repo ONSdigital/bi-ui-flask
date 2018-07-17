@@ -65,21 +65,28 @@ def search_field(search_string, filters, page_no, field, **kwargs):
 
     s = s[start:page_no * Config.ITEMS_PER_PAGE]
 
-    filters_active = False
+    filters_active = 'None'
 
     employment_toggle = filters.get('employment-toggle', None)
     if employment_toggle:
-        filters_active = True
+        filters_active = "Employment"
         s = s.filter('terms', EmploymentBands=populate_filter(employment_toggle))
 
     turnover_toggle = filters.get('turnover-toggle', None)
     if turnover_toggle:
-        filters_active = True
+        if filters_active != 'None':
+            filters_active += ', Turnover'
+        else:
+            filters_active = 'Turnover'
+        filters_active += ' Turnover'
         s = s.filter('terms', Turnover=populate_filter(turnover_toggle))
 
     trading_toggle = filters.get('trading-toggle', None)
     if trading_toggle:
-        filters_active = True
+        if filters_active != 'None':
+            filters_active += ', Trading'
+        else:
+            filters_active = 'Trading'
         s = s.filter('terms', TradingStatus=populate_filter(trading_toggle))
 
     search_from = kwargs.get('search_from')
@@ -91,14 +98,18 @@ def search_field(search_string, filters, page_no, field, **kwargs):
 
     legal_toggle = filters.get('legal-toggle', None)
     if legal_toggle:
+        legal_toggle_rep = []
         legal_map = {'Company': '1', 'Sole Proprietor': 2, 'Partnership': 3, 'Public Corporation': 4,
                      'Central Government': 5, 'Local Authority': 6,
                      'Non-Profit Organisation': 7, 'Charity': 8}
         for n, i in enumerate(legal_toggle):
-            legal_toggle[n] = str(legal_map.get(i))
+            legal_toggle_rep.append(str(legal_map.get(i)))
 
-        s = s.filter('terms', LegalStatus=populate_filter(legal_toggle))
-        filters_active = True
+        s = s.filter('terms', LegalStatus=legal_toggle_rep)
+        if filters_active != 'None':
+            filters_active += ', Legal Status'
+        else:
+            filters_active = 'Legal Status'
 
     print(s.to_dict())
 

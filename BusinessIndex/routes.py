@@ -146,7 +146,6 @@ def show_name_results(page):
         abort(404)
 
     pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
-    global view_type
     return render_template('results.html', pagination=pagination, companies=results, tabs=tabs, view=view_type)
 
 
