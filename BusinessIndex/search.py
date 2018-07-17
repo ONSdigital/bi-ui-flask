@@ -23,6 +23,22 @@ def search_all(search_string, filters, page_no):
     return search_field(search_string, filters, page_no, 'ALL')
 
 
+def search_ubrn(search_string, filters, page_no):
+    return search_field(search_string, filters, page_no, 'UBRN')
+
+
+def search_crn(search_string, filters, page_no):
+    return search_field(search_string, filters, page_no, 'CompanyNo')
+
+
+def search_vat(search_string, filters, page_no):
+    return search_field(search_string, filters, page_no, 'VatRefs')
+
+
+def search_paye(search_string, filters, page_no):
+    return search_field(search_string, filters, page_no, 'PayeRefs')
+
+
 def search_field(search_string, filters, page_no, field, **kwargs):
     if kwargs is not None:
         search_from = kwargs.get('search_from')
@@ -35,8 +51,10 @@ def search_field(search_string, filters, page_no, field, **kwargs):
 
     orig_search_string = search_string
 
-    if field != 'IndustryCode':  # Because SIC uses integers
+    try:
         search_string = check_reserved_characters(search_string)
+    except AttributeError:
+        pass
 
     if field == 'ALL':
         s = Search(using=es, index=Config.INDEX) \

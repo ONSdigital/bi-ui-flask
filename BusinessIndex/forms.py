@@ -16,7 +16,7 @@ class NameSearchForm(FlaskForm):
 
 
 class PostcodeSearchForm(FlaskForm):
-    search = StringField(u'Enter Search Criteria', validators=[DataRequired()])
+    search = StringField(u'Enter Post Code:', validators=[DataRequired()])
     submit = SubmitField(u'Search')
     search_postcode_filters = HiddenField()
 
@@ -61,3 +61,64 @@ class IndustrycodeSearchForm(FlaskForm):
                 result = False
 
         return result
+
+
+class UBRNSearchForm(FlaskForm):
+    search = StringField(u'Enter UBRN Number:', validators=[Length(min=4)])
+    submit = SubmitField(u'Search')
+    search_ubrn_filters = HiddenField()
+
+    def validate(self):
+        if not self.search.data:
+            a = list(self.search.errors)
+            a.append('UBRN Number Required')
+            self.search.errors = tuple(a)
+            return False
+
+        return True
+
+
+class CRNSearchForm(FlaskForm):
+    search = StringField(u'Enter Company Identifier:', validators=[Length(min=4)])
+    submit = SubmitField(u'Search')
+    search_crn_filters = HiddenField()
+
+    def validate(self):
+        if not self.search.data:
+            a = list(self.search.errors)
+            a.append('Company Identifier Required')
+            self.search.errors = tuple(a)
+            return False
+
+        return True
+
+
+class VATSearchForm(FlaskForm):
+    search = StringField(u'Enter VAT Number:', validators=[Length(min=4)])
+    submit = SubmitField(u'Search')
+    search_vat_filters = HiddenField()
+
+    def validate(self):
+        if not self.search.data:
+            a = list(self.search.errors)
+            a.append('VAT Number Required')
+            self.search.errors = tuple(a)
+            return False
+
+        return True
+
+
+class PAYESearchForm(FlaskForm):
+    search = StringField(u'Enter PAYE Number:', validators=[Length(min=4)])
+    submit = SubmitField(u'Search')
+    search_paye_filters = HiddenField()
+
+    def validate(self):
+        if not self.search.data:
+            a = list(self.search.errors)
+            a.append('PAYE Number Required')
+            self.search.errors = tuple(a)
+            return False
+
+        return True
+

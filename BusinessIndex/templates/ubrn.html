@@ -13,11 +13,11 @@
             <div class="panel panel--info" style="min-height:300px;">
 
                 <div class="panel__header">
-                    <div class="venus">Search by Post Code</div>
+                    <div class="venus">Search by UBRN</div>
                 </div>
                 <div class="panel__body">
 
-                    <form action="/search_postcode/" method="post" novalidate id="search-postcode-form">
+                    <form action="/search_ubrn/" method="post" novalidate id="search-ubrn-form">
 
                         {{ form.hidden_tag() }}
 
@@ -31,7 +31,7 @@
                         </div>
 
                         {% for error in form.search.errors %}
-                            <span style="color: red;">[{{ error }}]</span>
+                            <span id='search-error' style="color: red;">[{{ error }}]</span>
                         {% endfor %}
 
                     </form>
@@ -44,8 +44,8 @@
     <script>
 
         $(document).ready(function () {
-            $('#search-postcode-form').submit(function (e) {
-                $('#search_postcode_filters').val(JSON.stringify(get_filters()));
+            $('#search-ubrn-form').submit(function (e) {
+                $('#search_ubrn_filters').val(JSON.stringify(get_filters()));
                 return true;
             });
         });

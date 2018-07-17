@@ -59,13 +59,40 @@ def industrycode():
     return render_template('industrycode.html', form=form, tabs=tabs)
 
 
+@app.route('/ubrn')
+def ubrn():
+    form = forms.UBRNSearchForm()
+    set_active('UBRN')
+    return render_template('ubrn.html', form=form, tabs=tabs)
+
+
+@app.route('/crn')
+def crn():
+    form = forms.CRNSearchForm()
+    set_active('CRN')
+    return render_template('crn.html', form=form, tabs=tabs)
+
+
+@app.route('/vat')
+def vat():
+    form = forms.VATSearchForm()
+    set_active('VAT')
+    return render_template('vat.html', form=form, tabs=tabs)
+
+
+@app.route('/paye')
+def paye():
+    form = forms.PAYESearchForm()
+    set_active('PAYE')
+    return render_template('paye.html', form=form, tabs=tabs)
+
+
 # set the view type
 @app.route('/setview', methods=['POST'])
 def set_view():
     jsdata = json.loads(request.form['javascript_data'])
     global view_type
     view_type = jsdata.get('view_type')
-    print("view type set to:" + view_type)
     return view_type
 
 
@@ -177,6 +204,126 @@ def show_industry_results(page):
         search_to = session['search_to']
 
     results = search.search_industry(search_string, search_from,  search_to, filters, page)
+
+    count = results['total']
+
+    if not results and page != 1:
+        abort(404)
+
+    pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs, view=view_type)
+
+
+@app.route('/search_ubrn/', defaults={'page': 1}, methods=['GET', 'POST'])
+@app.route('/search_ubrn/page/<int:page>', methods=['GET', 'POST'])
+def show_ubrn_results(page):
+    form = forms.UBRNSearchForm()
+    search_string = form.search.data
+
+    if page == 1:
+        if not form.validate_on_submit():
+            #  pass the checkbox so we can show the correct from/to pane
+            return render_template('ubrn.html', form=form, tabs=tabs)
+
+    if search_string is None:
+        search_string = session['search_string']
+        filters = session['filters']
+    else:
+        session['search_string'] = search_string
+        filters = json.loads(form.search_ubrn_filters.data)
+        session['filters'] = filters
+
+    results = search.search_ubrn(search_string, filters, page)
+
+    count = results['total']
+
+    if not results and page != 1:
+        abort(404)
+
+    pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs, view=view_type)
+
+
+@app.route('/search_crn/', defaults={'page': 1}, methods=['GET', 'POST'])
+@app.route('/search_crn/page/<int:page>', methods=['GET', 'POST'])
+def show_crn_results(page):
+    form = forms.CRNSearchForm()
+    search_string = form.search.data
+
+    if page == 1:
+        if not form.validate_on_submit():
+            #  pass the checkbox so we can show the correct from/to pane
+            return render_template('crn.html', form=form, tabs=tabs)
+
+    if search_string is None:
+        search_string = session['search_string']
+        filters = session['filters']
+    else:
+        session['search_string'] = search_string
+        filters = json.loads(form.search_crn_filters.data)
+        session['filters'] = filters
+
+    results = search.search_crn(search_string, filters, page)
+
+    count = results['total']
+
+    if not results and page != 1:
+        abort(404)
+
+    pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs, view=view_type)
+
+
+@app.route('/search_vat/', defaults={'page': 1}, methods=['GET', 'POST'])
+@app.route('/search_vat/page/<int:page>', methods=['GET', 'POST'])
+def show_vat_results(page):
+    form = forms.VATSearchForm()
+    search_string = form.search.data
+
+    if page == 1:
+        if not form.validate_on_submit():
+            #  pass the checkbox so we can show the correct from/to pane
+            return render_template('vat.html', form=form, tabs=tabs)
+
+    if search_string is None:
+        search_string = session['search_string']
+        filters = session['filters']
+    else:
+        session['search_string'] = search_string
+        filters = json.loads(form.search_vat_filters.data)
+        session['filters'] = filters
+
+    results = search.search_vat(search_string, filters, page)
+
+    count = results['total']
+
+    if not results and page != 1:
+        abort(404)
+
+    pagination = Pagination(page, Config.ITEMS_PER_PAGE, count)
+    return render_template('results.html', pagination=pagination, companies=results, tabs=tabs, view=view_type)
+
+
+@app.route('/search_paye/', defaults={'page': 1}, methods=['GET', 'POST'])
+@app.route('/search_paye/page/<int:page>', methods=['GET', 'POST'])
+def show_paye_results(page):
+    form = forms.PAYESearchForm()
+    search_string = form.search.data
+
+    if page == 1:
+        if not form.validate_on_submit():
+            #  pass the checkbox so we can show the correct from/to pane
+            return render_template('paye.html', form=form, tabs=tabs)
+
+    if search_string is None:
+        search_string = session['search_string']
+        filters = session['filters']
+    else:
+        session['search_string'] = search_string
+        filters = json.loads(form.search_paye_filters.data)
+        session['filters'] = filters
+
+    results = search.search_paye(search_string, filters, page)
 
     count = results['total']
 
