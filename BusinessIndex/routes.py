@@ -117,7 +117,19 @@ def show_all_results(page):
         filters = json.loads(form.search_all_filters.data)
         session['filters'] = filters
 
-    results = search.search_all(search_string, filters, page)
+    try:
+        results = search.search_all(search_string, filters, page)
+    except Exception as inst:
+        try:
+            reason = inst.info['error']['root_cause'][0]['reason']
+        except (NameError, TypeError, AttributeError):
+            reason = inst
+
+        a = list(form.search.errors)
+        a.append(reason)
+        form.search.errors = tuple(a)
+        form.search.data = None
+        return render_template('index.html', form=form, tabs=tabs)
 
     count = results['total']
 
@@ -147,7 +159,19 @@ def show_name_results(page):
         filters = json.loads(form.search_name_filters.data)
         session['filters'] = filters
 
-    results = search.search_name(search_string, filters, page)
+    try:
+        results = search.search_name(search_string, filters, page)
+    except Exception as inst:
+        try:
+            reason = inst.info['error']['root_cause'][0]['reason']
+        except (NameError, TypeError, AttributeError):
+            reason = inst
+
+        a = list(form.search.errors)
+        a.append(reason)
+        form.search.errors = tuple(a)
+        form.search.data = None
+        return render_template('name.html', form=form, tabs=tabs)
 
     count = results['total']
 
@@ -176,7 +200,19 @@ def show_postcode_results(page):
         filters = json.loads(form.search_postcode_filters.data)
         session['filters'] = filters
 
-    results = search.search_postcode(search_string, filters, page)
+    try:
+        results = search.search_postcode(search_string, filters, page)
+    except Exception as inst:
+        try:
+            reason = inst.info['error']['root_cause'][0]['reason']
+        except (NameError, TypeError, AttributeError):
+            reason = inst
+
+        a = list(form.search.errors)
+        a.append(reason)
+        form.search.errors = tuple(a)
+        form.search.data = None
+        return render_template('postcode.html', form=form, tabs=tabs)
 
     count = results['total']
 
@@ -215,7 +251,19 @@ def show_industry_results(page):
         search_from = session['search_from']
         search_to = session['search_to']
 
-    results = search.search_industry(search_string, search_from,  search_to, filters, page)
+    try:
+        results = search.search_industry(search_string, search_from, search_to, filters, page)
+    except Exception as inst:
+        try:
+            reason = inst.info['error']['root_cause'][0]['reason']
+        except (NameError, TypeError, AttributeError):
+            reason = inst
+
+        a = list(form.search.errors)
+        a.append(reason)
+        form.search.errors = tuple(a)
+        form.search.data = None
+        return render_template('industrycode.html', form=form, tabs=tabs, visible=checkbox)
 
     count = results['total']
 
@@ -245,7 +293,19 @@ def show_ubrn_results(page):
         filters = json.loads(form.search_ubrn_filters.data)
         session['filters'] = filters
 
-    results = search.search_ubrn(search_string, filters, page)
+    try:
+        results = search.search_ubrn(search_string, filters, page)
+    except Exception as inst:
+        try:
+            reason = inst.info['error']['root_cause'][0]['reason']
+        except (NameError, TypeError, AttributeError):
+            reason = inst
+
+        a = list(form.search.errors)
+        a.append(reason)
+        form.search.errors = tuple(a)
+        form.search.data = None
+        return render_template('ubrn.html', form=form, tabs=tabs)
 
     count = results['total']
 
@@ -275,7 +335,19 @@ def show_crn_results(page):
         filters = json.loads(form.search_crn_filters.data)
         session['filters'] = filters
 
-    results = search.search_crn(search_string, filters, page)
+    try:
+        results = search.search_crn(search_string, filters, page)
+    except Exception as inst:
+        try:
+            reason = inst.info['error']['root_cause'][0]['reason']
+        except (NameError, TypeError, AttributeError):
+            reason = inst
+
+        a = list(form.search.errors)
+        a.append(reason)
+        form.search.errors = tuple(a)
+        form.search.data = None
+        return render_template('crn.html', form=form, tabs=tabs)
 
     count = results['total']
 
@@ -305,7 +377,19 @@ def show_vat_results(page):
         filters = json.loads(form.search_vat_filters.data)
         session['filters'] = filters
 
-    results = search.search_vat(search_string, filters, page)
+    try:
+        results = search.search_vat(search_string, filters, page)
+    except Exception as inst:
+        try:
+            reason = inst.info['error']['root_cause'][0]['reason']
+        except (NameError, TypeError, AttributeError):
+            reason = inst
+
+        a = list(form.search.errors)
+        a.append(reason)
+        form.search.errors = tuple(a)
+        form.search.data = None
+        return render_template('vat.html', form=form, tabs=tabs)
 
     count = results['total']
 
@@ -335,7 +419,19 @@ def show_paye_results(page):
         filters = json.loads(form.search_paye_filters.data)
         session['filters'] = filters
 
-    results = search.search_paye(search_string, filters, page)
+    try:
+        results = search.search_paye(search_string, filters, page)
+    except Exception as inst:
+        try:
+            reason = inst.info['error']['root_cause'][0]['reason']
+        except (NameError, TypeError, AttributeError):
+            reason = inst
+
+        a = list(form.search.errors)
+        a.append(reason)
+        form.search.errors = tuple(a)
+        form.search.data = None
+        return render_template('paye.html', form=form, tabs=tabs)
 
     count = results['total']
 

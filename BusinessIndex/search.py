@@ -20,7 +20,7 @@ def search_name(search_string, filters, page_no):
 
 
 def search_all(search_string, filters, page_no):
-    return search_field(search_string, filters, page_no, 'ALL')
+    return search_field(search_string, filters, page_no, '_all')
 
 
 def search_ubrn(search_string, filters, page_no):
@@ -56,12 +56,8 @@ def search_field(search_string, filters, page_no, field, **kwargs):
     except AttributeError:
         pass
 
-    if field == 'ALL':
-        s = Search(using=es, index=Config.INDEX) \
-            .query("query_string", query=search_string)
-    else:
-        s = Search(using=es, index=Config.INDEX) \
-            .query("simple_query_string", query=search_string, fields=[field])
+    s = Search(using=es, index=Config.INDEX) \
+        .query("simple_query_string", query=search_string, fields=[field])
 
     s = s[start:page_no * Config.ITEMS_PER_PAGE]
 
@@ -78,7 +74,6 @@ def search_field(search_string, filters, page_no, field, **kwargs):
             filters_active += ', Turnover'
         else:
             filters_active = 'Turnover'
-        filters_active += ' Turnover'
         s = s.filter('terms', Turnover=populate_filter(turnover_toggle))
 
     trading_toggle = filters.get('trading-toggle', None)
@@ -95,6 +90,7 @@ def search_field(search_string, filters, page_no, field, **kwargs):
     if search_from or search_to:
         s = s.filter('range', IndustryCode={'gte': int(search_from) - 1, 'lt': int(search_to) + 1})
         s = s.sort('IndustryCode')
+        orig_search_string = str(search_from) + '-' + str(search_to)
 
     legal_toggle = filters.get('legal-toggle', None)
     if legal_toggle:

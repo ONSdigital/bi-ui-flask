@@ -34,21 +34,21 @@ class IndustrycodeSearchForm(FlaskForm):
         if self.checkbox.data:
             if not self.searchfrom.data:
                 a = list(self.searchfrom.errors)
-                a.append('From value required (integer)')
+                a.append(u'From value required (integer)')
                 self.searchfrom.errors = tuple(a)
                 self.searchfrom.data = None
                 self.searchto.data = None
                 result = False
             elif not self.searchto.data:
                 a = list(self.searchto.errors)
-                a.append('To value required (integer)')
+                a.append(u'To value required (integer)')
                 self.searchto.errors = tuple(a)
                 self.searchfrom.data = None
                 self.searchto.data = None
                 result = False
             elif self.searchto.data < self.searchfrom.data:
                 a = list(self.searchto.errors)
-                a.append('To value be >= the from value')
+                a.append(u'The to value must be grerater than the from value')
                 self.searchto.errors = tuple(a)
                 self.searchfrom.data = None
                 self.searchto.data = None
@@ -56,7 +56,7 @@ class IndustrycodeSearchForm(FlaskForm):
         else:
             if not self.search.data:
                 a = list(self.search.errors)
-                a.append('Search value required (integer)')
+                a.append(u'Search value required (integer)')
                 self.search.errors = tuple(a)
                 result = False
 
